@@ -13,8 +13,9 @@ class Welcome_UI extends StatefulWidget {
 class _Welcome_UIState extends State<Welcome_UI> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-
+      backgroundColor: Colors.yellow,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -22,9 +23,13 @@ class _Welcome_UIState extends State<Welcome_UI> {
             children: [
               Text(
                 "WELCOME TO MINISTOP",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.blue),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: Colors.blue),
 
               ),
+              Image.asset("assets/images/logo.png",
+                width: size.width * 0.60,
+
+              )
 
             ],
           ),
