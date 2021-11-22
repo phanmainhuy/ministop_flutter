@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/constants.dart';
 
@@ -5,9 +6,9 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
   final Function press;
   const AlreadyHaveAnAccountCheck({
-    Key key,
+    Key? key,
     this.login = true,
-    this.press,
+     required this.press,
   }) : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
           style: TextStyle(color: kPrimaryColor),
         ),
         GestureDetector(
-          onTap: press,
+          onTap: press(),
           child: Text(
             login ? "Sign Up" : "Sign In",
             style: TextStyle(
@@ -31,5 +32,10 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
         )
       ],
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<Function>('press', press));
   }
 }
