@@ -4,24 +4,37 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ministop/constants.dart';
+import 'package:flutter/material.dart';
 
 
 
 class User_Model{
-  final String id;
-  final String sdt;
-  final String hoten;
-  final String matkhau;
-  final String email;
-  final String ngaysinh;
-  final String gioitinh;
-  final String diachi;
-  final String hinhanh;
+   String id;
+   String sdt;
+   String hoten;
+   String matkhau;
+   String email;
+   String ngaysinh;
+   String gioitinh;
+   String diachi;
+   String hinhanh;
   //Constructor
-  User_Model(this.id, this.sdt, this.hoten, this.matkhau, this.email, this.ngaysinh, this.gioitinh, this.diachi, this.hinhanh);
-  
+  User_Model({required this.id, required this.sdt, required this.hoten, required this.matkhau, required this.email, required this.ngaysinh, required this.gioitinh, required this.diachi, required this.hinhanh,});
 
-
+  //this is a static method
+  factory User_Model.fromJson(Map<String, dynamic>json){
+    return User_Model(
+        id: json['idnguoidung'],
+        sdt: json['sdt'],
+        hoten: json['hoten'],
+        matkhau: json['matkhau'],
+        email: json['email'],
+        ngaysinh: json['ngaysinh'],
+        gioitinh: json['gioitinh'],
+        diachi: json['diachi'],
+        hinhanh: json['hinhanh']
+    );
+  }
 }
 
 
