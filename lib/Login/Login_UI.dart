@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ministop/Register/Register_UI.dart';
 import 'package:ministop/components/rounded_input_field.dart';
 import 'package:ministop/components/rounded_password_field.dart';
 
@@ -43,6 +44,7 @@ class _Login_UIState extends State<Login_UI> {
                 SizedBox(
                   width: 330, height: 70,
                   child: RoundedInputField(
+                    icon: Icons.person,
                     hintText: "Email",
                     onChanged: (value) {},
 
@@ -52,6 +54,7 @@ class _Login_UIState extends State<Login_UI> {
                 SizedBox(
                   width: 330, height: 70,
                   child:  RoundedPasswordField(
+                    hintText: 'Mật khẩu',
                     onChanged: (value) {},
                   ),
                 ),
@@ -112,7 +115,17 @@ class _Login_UIState extends State<Login_UI> {
                             )
                         )
                     ),
-                    onPressed:() => null,
+                    onPressed:() =>
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Register_UI();
+                          },
+                        ),
+                      )
+                    },
                   ),
 
                 ),

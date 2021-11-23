@@ -4,8 +4,10 @@ import 'package:ministop/constants.dart';
 
 class RoundedPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
+  final String hintText;
   const RoundedPasswordField({
     Key? key,
+    required this.hintText,
     required this.onChanged,
   }) : super(key: key);
 
@@ -17,7 +19,7 @@ class RoundedPasswordField extends StatelessWidget {
         onChanged: onChanged,
         cursorColor: kPrimaryColor,
         decoration: InputDecoration(
-          hintText: "Password",
+          hintText: hintText,
           icon: Icon(
             Icons.lock,
             color: blue_ministopColor,

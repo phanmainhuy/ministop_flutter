@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/Login/Login_UI.dart';
+import 'package:ministop/Register/Register_UI.dart';
 import 'package:ministop/Welcome/Welcome_UI.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      home: Welcome_UI(),
+      home: Register_UI(),
 
     );
   }
