@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ministop/components/rounded_button.dart';
+import 'package:ministop/Login/Login_UI.dart';
+
 
 import '../constants.dart';
 
@@ -23,7 +24,7 @@ class _Welcome_UIState extends State<Welcome_UI> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Text(
                 "WELCOME TO MINISTOP",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: blue_ministopColor),
@@ -35,45 +36,63 @@ class _Welcome_UIState extends State<Welcome_UI> {
               ),
 
               SizedBox(width: 10, height: 20,),
-              TextButton(
+              SizedBox(
+                width: 170, height: 50,
+                child: ElevatedButton(
                   child: Text(
                       "Đăng nhập".toUpperCase(),
-                      style: TextStyle(fontSize: 20)
+                      style: TextStyle(fontSize: 17)
                   ),
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                    backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(19.0),
-                            side: BorderSide(color: blue_ministopColor)
-                        )
+                  style: ButtonStyle(
+
+                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                      backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(19.0),
+                              side: BorderSide(color: Colors.white)
+                          )
+                      )
+                  ),
+                  onPressed:() => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Login_UI();
+                        },
+                      ),
                     )
-                ),
-                onPressed:() => null,
+                  },
+
+              ),
               ),
               SizedBox(width: 10, height: 10,),
-              TextButton(
+              SizedBox(
+                width: 170, height: 50,
+                child:  ElevatedButton(
 
-                child: Text(
-                    "Đăng ký".toUpperCase(),
-                    style: TextStyle(fontSize: 20)
+                  child: Text(
+                      "Đăng ký".toUpperCase(),
+                      style: TextStyle(fontSize: 17)
+                  ),
+                  style: ButtonStyle(
+
+                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+                      foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(19.0),
+                              side: BorderSide(color: blue_ministopColor)
+                          )
+                      )
+                  ),
+                  onPressed:() => null,
                 ),
-                style: ButtonStyle(
-                    
-                    padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-                    foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                    backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(19.0),
-                            side: BorderSide(color: blue_ministopColor)
-                        )
-                    )
-                ),
-                onPressed:() => null,
               ),
+
 
 
 
