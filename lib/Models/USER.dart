@@ -41,7 +41,7 @@ class User_Model{
 
 //Fetch data from Restful API
 Future<List<User_Model>> fetch_Users(http.Client client) async{
-  final response = await client.get(Uri.parse("http://"+ip+"/wsministop/getnguoidung.php"));
+  final response = await client.get(Uri.parse(apiMinistop + "getnguoidung.php"));
   return fetch_Users(client);
 
 }
