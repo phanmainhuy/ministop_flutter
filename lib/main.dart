@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ministop/Home/Home_UI.dart';
 import 'package:ministop/Home/ListProducts/ListProducts_UI.dart';
 import 'package:ministop/Login/Login_UI.dart';
+import 'package:ministop/Models/USER.dart';
+import 'package:ministop/Models/PRODUCT.dart';
 import 'package:ministop/Register/Register_UI.dart';
 import 'package:ministop/Welcome/Welcome_UI.dart';
 
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      home: ListProducts_UI(),
+      home: Home_UI(),
 
     );
   }
