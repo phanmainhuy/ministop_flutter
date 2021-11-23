@@ -1,13 +1,13 @@
 
 import 'dart:convert';
-import ''
+import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ministop/constants.dart';
 
 
 
-class User{
+class User_Model{
   final String id;
   final String sdt;
   final String hoten;
@@ -17,22 +17,15 @@ class User{
   final String gioitinh;
   final String diachi;
   final String hinhanh;
-User(this.id, this.sdt, this.hoten, this.matkhau, this.email, this.ngaysinh, this.gioitinh, this.diachi, this.hinhanh)};
+  //Constructor
+  User_Model(this.id, this.sdt, this.hoten, this.matkhau, this.email, this.ngaysinh, this.gioitinh, this.diachi, this.hinhanh);
+  
 
 
-  factory User.fromMap(Map<String, dynamic> json) {
-    return User(
-      id: json['idnguoidung'],
-      sdt: json['sdt'],
-      hoten: json['hoten'],
-      matkhau: json['matkhau'],
-      email: json['email'],
-      ngaysinh: json['ngaysinh'],
-      gioitinh: json['gioitinh'],
-      diachi: json['diachi'],
-      hinhanh: json['hinhanh'],
-    );
-  }
+}
+
+
+
 
 
 
