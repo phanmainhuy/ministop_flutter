@@ -1,8 +1,10 @@
 
 import 'dart:convert';
 import 'dart:async';
+import 'dart:html';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
+import 'package:ministop/Models/GLOBAL.dart';
 import 'package:ministop/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +39,12 @@ class User_Model{
   }
 }
 
+//Fetch data from Restful API
+Future<List<User_Model>> fetch_Users(http.Client client) async{
+  final response = await client.get(Uri.parse("http://"+ip+"/wsministop/getnguoidung.php"));
+  return fetch_Users(client);
 
+}
 
 
 
