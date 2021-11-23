@@ -1,13 +1,12 @@
 
 import 'dart:convert';
 import 'dart:async';
-import 'dart:html';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ministop/Models/GLOBAL.dart';
 import 'package:ministop/constants.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ministop/Login/Login_UI.dart';
 
 
 class User_Model{
@@ -39,12 +38,19 @@ class User_Model{
   }
 }
 
-//Fetch data from Restful API
-Future<List<User_Model>> fetch_Users(http.Client client) async{
-  final response = await client.get(Uri.parse(apiMinistop + "getnguoidung.php"));
-  return fetch_Users(client);
-
-}
+// //Fetch data from Restful API
+// Future<List<User_Model>> fetch_UsersLogin(http.Client client) async{
+//   final response = await client.get(Uri.parse(apiMinistop + "getnguoidung.php"));
+//   if(response.statusCode==200){
+//     Map<String, dynamic> mapResponse = json.decode(response.body);
+//     if(mapResponse['matkhau'] == '123')
+//
+//       final
+//
+//
+//   }
+//
+// }
 
 
 
