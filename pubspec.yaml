@@ -58,6 +58,9 @@ flutter:
       - assets/icons/
       - assets/images/
       - assets/slide_flutter/
+      - assets/images/danhmuc/
+      - assets/images/nguoidung/
+      - assets/images/sanpham/
 #     - images/a_dot_burr.jpeg
 #     - images/a_dot_ham.jpeg
 
