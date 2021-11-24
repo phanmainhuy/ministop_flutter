@@ -3,7 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/Home/Home_UI.dart';
-import 'package:ministop/Home/ListProducts/ListProducts_UI.dart';
+import 'package:ministop/Home/ListCategory/ListCategory.dart';
+
 import 'package:ministop/Login/Login_UI.dart';
 import 'package:ministop/Models/USER.dart';
 import 'package:ministop/Models/PRODUCT.dart';
@@ -20,8 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-      home: Home_UI(),
+      debugShowCheckedModeBanner: false,
+      home: Login_UI(),
 
     );
   }

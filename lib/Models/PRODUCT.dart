@@ -37,7 +37,7 @@ List<Product_Model> parseProduct(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<Product_Model>((json) =>Product_Model.fromJson(json)).toList();
 }
-Future<List<Product_Model>> fetchProducts() async {
+Future<List<Product_Model>> getProducts() async {
   final response = await http.get(Uri.parse(apiMinistop + "getsanpham.php"));
   if (response.statusCode == 200) {
     return parseProduct(response.body);

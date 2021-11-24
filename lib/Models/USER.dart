@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ministop/Models/GLOBAL.dart';
+
 import 'package:ministop/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/Login/Login_UI.dart';
@@ -41,7 +42,7 @@ List<User_Model> parseUser(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<User_Model>((json) =>User_Model.fromJson(json)).toList();
 }
-Future<List<User_Model>> fetchUser() async {
+Future<List<User_Model>> getUser() async {
   final response = await http.get(Uri.parse(apiMinistop + "getnguoidung.php"));
   if (response.statusCode == 200) {
     return parseUser(response.body);
