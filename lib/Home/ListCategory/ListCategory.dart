@@ -67,7 +67,7 @@ class _ListCategoryState extends State<ListCategory> {
       body: RefreshIndicator(
         onRefresh: _handleRefresh,
         child: ListView.builder(
-            itemCount:5,
+            itemCount:lstdefault.length,
             itemBuilder: (BuildContext context,int index){
               Category_Model cgt = lstdefault[index];
               return ListTile(
