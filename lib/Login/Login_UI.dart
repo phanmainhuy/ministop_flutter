@@ -45,6 +45,7 @@ class _Login_UIState extends State<Login_UI> {
                 SizedBox(
                   width: 330, height: 70,
                   child: RoundedInputField(
+
                     icon: Icons.person,
                     hintText: "Email",
                     onChanged: (value) {
@@ -56,7 +57,7 @@ class _Login_UIState extends State<Login_UI> {
 
                 SizedBox(
                   width: 330, height: 70,
-                  child:  RoundedPasswordField(
+                  child:  MyPasswordField(
                     hintText: 'Mật khẩu',
                     onChanged: (value) {},
                   ),

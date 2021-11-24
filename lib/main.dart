@@ -8,6 +8,7 @@ import 'package:ministop/Home/ListCategory/ListCategory.dart';
 import 'package:ministop/Login/Login_UI.dart';
 import 'package:ministop/Models/USER.dart';
 import 'package:ministop/Models/PRODUCT.dart';
+import 'package:ministop/Profile/Profile_UI.dart';
 import 'package:ministop/Register/Register_UI.dart';
 import 'package:ministop/Welcome/Welcome_UI.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Welcome_UI(),
+      home: Login_UI(),
 
     );
   }

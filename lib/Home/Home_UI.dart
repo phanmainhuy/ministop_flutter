@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ministop/Cart/Cart_UI.dart';
+import 'package:ministop/Profile/Profile_UI.dart';
 import 'package:ministop/constants.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -55,129 +57,149 @@ class _Home_UIState extends State<Home_UI> {
 
         ),
         iconTheme: IconThemeData(color: blue_ministopColor),
-        actions: [IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {
-
+        actions: [IconButton(icon: Icon(Icons.shopping_cart),
+          onPressed:() => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return Cart_UI();
+                },
+              ),
+            )
           },
           )
         ],
       ),
 
-      body: Container(
-
-          child: Column(
-            children: <Widget>[
-              CarouselSlider(
-                options: CarouselOptions(
-                  aspectRatio: 2.0,
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                  initialPage: 2,
-                  autoPlay: true,
+      body: SafeArea(
+        child: Container(
+            child: Column(
+              children: <Widget>[
+                CarouselSlider(
+                  options: CarouselOptions(
+                    aspectRatio: 2.0,
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: false,
+                    initialPage: 2,
+                    autoPlay: true,
+                  ),
+                  items: imageSliders,
                 ),
-                items: imageSliders,
-              ),
 
-              SizedBox(height: 20,),
-              SizedBox(
-                child: Row(
-                  children: <Widget>[
-                    //add button
-                    SizedBox(width: 10,),
-                    //add button timkiem
-                    SizedBox(
-                      child :ElevatedButton(
-                        child: Text(
-                            "Tìm kiếm",
-                            style: TextStyle(fontSize: 15)
+                SizedBox(height: 20,),
+                SizedBox(
+                  child: Row(
+                    children: <Widget>[
+                      //add button
+                      SizedBox(width: 10,),
+                      //add button timkiem
+                      SizedBox(
+                        child :ElevatedButton(
+                          child: Text(
+                              "Tìm kiếm",
+                              style: TextStyle(fontSize: 15)
+                          ),
+
+                          style: ButtonStyle(
+
+                              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                              backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      side: BorderSide(color: Colors.white)
+                                  )
+                              )
+                          ),
+                          onPressed:() => null,
                         ),
-
-                        style: ButtonStyle(
-
-                            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-                            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                            backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side: BorderSide(color: Colors.white)
-                                )
-                            )
-                        ),
-                        onPressed:() => null,
                       ),
-                    ),
 
 //add button
-                    SizedBox(width: 10,),
-                    //add button timkiem
-                    SizedBox(
-                      child :ElevatedButton(
-                        child: Text(
-                            "Sản phẩm",
-                            style: TextStyle(fontSize: 15)
-                        ),
+                      SizedBox(width: 10,),
+                      //add button timkiem
+                      SizedBox(
+                        child :ElevatedButton(
+                          child: Text(
+                              "Sản phẩm",
+                              style: TextStyle(fontSize: 15)
+                          ),
 
-                        style: ButtonStyle(
+                          style: ButtonStyle(
 
-                            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-                            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                            backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side: BorderSide(color: Colors.white)
-                                )
-                            )
+                              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                              backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      side: BorderSide(color: Colors.white)
+                                  )
+                              )
+                          ),
+                          onPressed:() => null,
                         ),
-                        onPressed:() => null,
                       ),
-                    ),
 
-                //add button
-                    SizedBox(width: 10,),
-                    //add button timkiem
-                    SizedBox(
-                      child :ElevatedButton(
-                        child: Text(
-                            "Thông tin tài khoản",
-                            style: TextStyle(fontSize: 15)
-                        ),
+                  //add button
+                      SizedBox(width: 10,),
+                      //add button timkiem
+                      SizedBox(
+                        child :ElevatedButton(
+                          child: Text(
+                              "Thông tin tài khoản",
+                              style: TextStyle(fontSize: 15)
+                          ),
 
-                        style: ButtonStyle(
+                          style: ButtonStyle(
 
-                            padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-                            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                            backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side: BorderSide(color: Colors.white)
-                                )
+                              padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                              backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      side: BorderSide(color: Colors.white)
+                                  )
+                              )
+                          ),
+
+                          onPressed:() => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return Profile_UI();
+                                },
+                              ),
                             )
+                          },
+
                         ),
-                        onPressed:() => null,
                       ),
-                    ),
 
 
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              SizedBox(height: 10,),
-              SizedBox(
-                child: Text("Danh mục sản phẩm", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: blue_ministopColor),),
+                SizedBox(height: 10,),
+                SizedBox(
+                  child: Text("Danh mục sản phẩm", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: blue_ministopColor),),
 
-              ),
-              SizedBox(height: 10,),
+                ),
+                SizedBox(height: 10,),
 
-            // SingleChildScrollView(
-            //       child: ListCategory(),
-            // ),
-            ],
+              // SingleChildScrollView(
+              //       child: ListCategory(),
+              // ),
+              ],
 
+            ),
           ),
-        ),
+      ),
 
     );
 

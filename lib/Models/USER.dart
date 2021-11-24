@@ -16,12 +16,11 @@ class User_Model{
    String hoten;
    String matkhau;
    String email;
-   String ngaysinh;
    String gioitinh;
    String diachi;
    String hinhanh;
   //Constructor
-  User_Model({required this.id, required this.sdt, required this.hoten, required this.matkhau, required this.email, required this.ngaysinh, required this.gioitinh, required this.diachi, required this.hinhanh,});
+  User_Model({required this.id, required this.sdt, required this.hoten, required this.matkhau, required this.email,  required this.gioitinh, required this.diachi, required this.hinhanh,});
 
   //this is a static method
   factory User_Model.fromJson(Map<String, dynamic>json){
@@ -31,25 +30,27 @@ class User_Model{
         hoten: json['hoten'],
         matkhau: json['matkhau'],
         email: json['email'],
-        ngaysinh: json['ngaysinh'],
         gioitinh: json['gioitinh'],
         diachi: json['diachi'],
         hinhanh: json['hinhanh']
     );
   }
 }
-List<User_Model> parseUser(String responseBody) {
-  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<User_Model>((json) =>User_Model.fromJson(json)).toList();
-}
-Future<List<User_Model>> getUser() async {
-  final response = await http.get(Uri.parse(apiMinistop + "getnguoidung.php"));
-  if (response.statusCode == 200) {
-    return parseUser(response.body);
-  } else {
-    throw Exception('Unable to fetch products from the REST API');
-  }
-}
+
+
+// List<User_Model> parseUser(String responseBody) {
+//   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+//   return parsed.map<User_Model>((json) =>User_Model.fromJson(json)).toList();
+// }
+// Future<List<User_Model>> getUser() async {
+//   final response = await http.get(Uri.parse(apiMinistop + "getnguoidung.php"));
+//   if (response.statusCode == 200) {
+//     return parseUser(response.body);
+//   } else {
+//     throw Exception('Unable to fetch products from the REST API');
+//   }
+// }
+
 // //Fetch data from Restful API
 // Future<List<User_Model>> fetch_UsersLogin(http.Client client) async{
 //   final response = await client.get(Uri.parse(apiMinistop + "getnguoidung.php"));

@@ -56,6 +56,7 @@ class _Welcome_UIState extends State<Welcome_UI> {
                           )
                       )
                   ),
+
                   onPressed:() => {
                     Navigator.pushReplacement(
                       context,

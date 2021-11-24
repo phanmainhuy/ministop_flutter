@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ministop/components/text_field_container.dart';
 import 'package:ministop/constants.dart';
 
-class RoundedPasswordField extends StatelessWidget {
+class MyPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final String hintText;
-  const RoundedPasswordField({
+  const MyPasswordField({
     Key? key,
     required this.hintText,
     required this.onChanged,
@@ -17,7 +17,7 @@ class RoundedPasswordField extends StatelessWidget {
       child: TextFormField(
         obscureText: true,
         onChanged: onChanged,
-        cursorColor: kPrimaryColor,
+        cursorColor: blue_ministopColor,
         decoration: InputDecoration(
           hintText: hintText,
           icon: Icon(
