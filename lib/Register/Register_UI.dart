@@ -112,7 +112,7 @@ class _Register_UIState extends State<Register_UI> {
                     ),
                     onPressed:() =>
                     {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) {
@@ -145,7 +145,7 @@ class _Register_UIState extends State<Register_UI> {
                         )
                     ),
                     onPressed:() => {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) {

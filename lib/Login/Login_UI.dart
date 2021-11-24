@@ -130,7 +130,7 @@ class _Login_UIState extends State<Login_UI> {
                     ),
                     onPressed:() =>
                     {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) {

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/Login/Login_UI.dart';
+import 'package:ministop/Register/Register_UI.dart';
 
 
 import '../constants.dart';
@@ -56,7 +57,7 @@ class _Welcome_UIState extends State<Welcome_UI> {
                       )
                   ),
                   onPressed:() => {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
@@ -89,7 +90,16 @@ class _Welcome_UIState extends State<Welcome_UI> {
                           )
                       )
                   ),
-                  onPressed:() => null,
+                  onPressed:() => {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Register_UI();
+                        },
+                      ),
+                    )
+                  },
                 ),
               ),
 
