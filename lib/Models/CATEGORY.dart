@@ -43,7 +43,7 @@ Future<List<Category_Model>> getCategory() async {
   }
 }
 
-Future<List<Category_Model>> searhGiaSu() async {
+Future<List<Category_Model>> getDanhMuc() async {
   return await http
       .get(
 

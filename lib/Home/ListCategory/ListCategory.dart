@@ -42,7 +42,7 @@ class _ListCategoryState extends State<ListCategory> {
   // }
 
   Future<Null> _handleRefresh() async {
-    Future _getDM = searhGiaSu();
+    Future _getDM = getDanhMuc();
     _getDM.then((value) => {lstdefault = value});
   }
 
