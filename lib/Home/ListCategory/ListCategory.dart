@@ -42,16 +42,16 @@ class _ListCategoryState extends State<ListCategory> {
   // }
 
   Future<Null> _handleRefresh() async {
-    // Future _getDM = searhGiaSu();
-    // _getDM.then((value) => {lstdefault = value});
+    Future _getDM = searhGiaSu();
+    _getDM.then((value) => {lstdefault = value});
   }
 
 
   @override
   void initState() {
     // TODO: implement initState
-    // Future _getDM = getCategory();
-    // _getDM.then((value) => {lstdefault = value});
+    Future _getDM = getCategory();
+    _getDM.then((value) => {lstdefault = value});
     super.initState();
   }
 
@@ -75,7 +75,7 @@ class _ListCategoryState extends State<ListCategory> {
                   trailing: Text("GFG",
                     style: TextStyle(
                         color: Colors.green,fontSize: 15),),
-                  title:Text("List item $index")
+                  title:Text("List item ${cgt.id.toString()}")
               );
             }
         ),

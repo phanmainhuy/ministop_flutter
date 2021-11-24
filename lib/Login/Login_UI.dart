@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ministop/Home/Home_UI.dart';
 import 'package:ministop/Register/Register_UI.dart';
 import 'package:ministop/components/rounded_input_field.dart';
 import 'package:ministop/components/rounded_password_field.dart';
@@ -93,7 +94,17 @@ class _Login_UIState extends State<Login_UI> {
                             )
                         )
                     ),
-                    onPressed:() => null,
+                      onPressed:() =>
+                      {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return Home_UI();
+                            },
+                          ),
+                        ),
+                      },
                   ),
                   
                 ),
@@ -126,7 +137,7 @@ class _Login_UIState extends State<Login_UI> {
                             return Register_UI();
                           },
                         ),
-                      )
+                      ),
                     },
                   ),
 
