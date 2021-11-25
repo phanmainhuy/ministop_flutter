@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/Home/Home_UI.dart';
@@ -24,143 +23,141 @@ class _Login_UIState extends State<Login_UI> {
   final TextEditingController phoneNumber = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController address = TextEditingController();
-  final TextEditingController sex = TextEditingController();
+  // final TextEditingController sex = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: yellow_ministop,
       body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children:<Widget>[
-
-
-                Image.asset("assets/images/logo.png",
-                  width: size.width * 0.60,
-
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                "assets/images/logo.png",
+                width: size.width * 0.60,
+              ),
+              SizedBox(height: 10),
+              Text(
+                "CỬA HÀNG TIỆN LỢI",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: blue_ministopColor),
+              ),
+              Text(
+                "MINISTOP",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: blue_ministopColor),
+              ),
+              SizedBox(height: 20),
+              SizedBox(
+                width: 330,
+                height: 70,
+                child: RoundedInputField(
+                  icon: Icons.person,
+                  hintText: "Email",
+                  controller: email,
                 ),
-                SizedBox(height: 10),
-                Text(
-                  "CỬA HÀNG TIỆN LỢI",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: blue_ministopColor),
-                ),
-                Text(
-                  "MINISTOP",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, color: blue_ministopColor),
-                ),
-                SizedBox(height: 20),
-                SizedBox(
-                  width: 330, height: 70,
-                  child: RoundedInputField(
+              ),
 
-                    icon: Icons.person,
-                    hintText: "Email",
-                    onChanged: (value) {
-
-                    },
-
-                  ),
+              SizedBox(
+                width: 330,
+                height: 70,
+                child: MyPasswordField(
+                  hintText: 'Mật khẩu',
+                  onChanged: (value) {},
                 ),
-
-                SizedBox(
-                  width: 330, height: 70,
-                  child:  MyPasswordField(
-                    hintText: 'Mật khẩu',
-                    onChanged: (value) {},
-                  ),
-                ),
-                // SizedBox(height: 10,),
-                //add a checkbox save pass
-                SizedBox(width: 330, height: 50,
+              ),
+              // SizedBox(height: 10,),
+              //add a checkbox save pass
+              SizedBox(
+                width: 330,
+                height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    CheckBoxRemember(
-                          
-                    ),
+                    CheckBoxRemember(),
                     Text('Lưu mật khẩu'),
                   ],
                 ),
-                ),
-                SizedBox(height: 10,),
-                SizedBox(
-                  width: 330, height: 50,
-                  child: ElevatedButton(
-                    child: Text(
-                        "Đăng nhập".toUpperCase(),
-                        style: TextStyle(fontSize: 15)
-                    ),
-                    style: ButtonStyle(
-
-                        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(19.0),
-                                side: BorderSide(color: Colors.white)
-                            )
-                        )
-                    ),
-                      onPressed:() =>
-                      {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return Home_UI();
-                            },
-                          ),
-                        ),
-                      },
-                  ),
-                  
-                ),
-                SizedBox(height: 10,),
-                SizedBox(
-                  width: 330, height: 50,
-                  child: ElevatedButton(
-                    child: Text(
-                        "Đăng ký tài khoản".toUpperCase(),
-                        style: TextStyle(fontSize: 15)
-                    ),
-                    style: ButtonStyle(
-
-                        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(15)),
-                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: MaterialStateProperty.all<Color>(blue_ministopColor),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(19.0),
-                                side: BorderSide(color: Colors.white)
-                            )
-                        )
-                    ),
-                    onPressed:() =>
-                    {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return Register_UI();
-                          },
-                        ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 330,
+                height: 50,
+                child: ElevatedButton(
+                  child: Text("Đăng nhập".toUpperCase(),
+                      style: TextStyle(fontSize: 15)),
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.all(15)),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(blue_ministopColor),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(19.0),
+                              side: BorderSide(color: Colors.white)))),
+                  onPressed: () => {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Home_UI();
+                        },
                       ),
-                    },
-                  ),
-
+                    ),
+                  },
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 330,
+                height: 50,
+                child: ElevatedButton(
+                  child: Text("Đăng ký tài khoản".toUpperCase(),
+                      style: TextStyle(fontSize: 15)),
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.all(15)),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(blue_ministopColor),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(19.0),
+                              side: BorderSide(color: Colors.white)))),
+                  onPressed: () => {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Register_UI();
+                        },
+                      ),
+                    ),
+                  },
+                ),
+              ),
+            ],
           ),
-
+        ),
       ),
-
     );
   }
 }
+
 class CheckBoxRemember extends StatefulWidget {
   const CheckBoxRemember({Key? key}) : super(key: key);
 
@@ -168,6 +165,8 @@ class CheckBoxRemember extends StatefulWidget {
   _CheckBoxRememberState createState() => _CheckBoxRememberState();
 }
 
+
+//check box
 class _CheckBoxRememberState extends State<CheckBoxRemember> {
   @override
   bool isChecked = false;
@@ -184,6 +183,7 @@ class _CheckBoxRememberState extends State<CheckBoxRemember> {
       }
       return blue_ministopColor;
     }
+
     return Checkbox(
       checkColor: Colors.white,
       fillColor: MaterialStateProperty.resolveWith(getColor),
@@ -193,8 +193,6 @@ class _CheckBoxRememberState extends State<CheckBoxRemember> {
           isChecked = value!;
         });
       },
-
     );
   }
 }
-

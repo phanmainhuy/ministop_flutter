@@ -4,22 +4,26 @@ import 'package:ministop/constants.dart';
 
 class RoundedInputField extends StatelessWidget {
   final String hintText;
+  final TextEditingController controller;
   // final Function validator;
   final IconData icon;
-  final ValueChanged<String> onChanged;
+  // final ValueChanged<String> onChanged;
+
   const RoundedInputField({
     Key? key,
     required this.hintText,
-  required this.icon,
-    required this.onChanged,
+    required this.icon,
+
+    required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
+        controller: controller,
         // validator: validator(),
-        onChanged: onChanged,
+
         cursorColor: blue_ministopColor,
         decoration: InputDecoration(
           icon: Icon(
