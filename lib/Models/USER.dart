@@ -20,7 +20,16 @@ class User_Model{
    String diachi;
    String hinhanh;
   //Constructor
-  User_Model({required this.id, required this.sdt, required this.hoten, required this.matkhau, required this.email,  required this.gioitinh, required this.diachi, required this.hinhanh,});
+  User_Model({
+    required this.id,
+    required this.sdt,
+    required this.hoten,
+    required this.matkhau,
+    required this.email,
+    required this.gioitinh,
+    required this.diachi,
+    required this.hinhanh,});
+
 
   //this is a static method
   factory User_Model.fromJson(Map<String, dynamic>json){
