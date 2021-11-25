@@ -16,6 +16,15 @@ class Login_UI extends StatefulWidget {
 }
 
 class _Login_UIState extends State<Login_UI> {
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  String p =
+      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+  final TextEditingController email = TextEditingController();
+  final TextEditingController userName = TextEditingController();
+  final TextEditingController phoneNumber = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController address = TextEditingController();
+  final TextEditingController sex = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:ministop/Login/Login_UI.dart';
 
 
-class User_Model{
+class UserModel{
    String id;
    String sdt;
    String hoten;
@@ -20,7 +20,7 @@ class User_Model{
    String diachi;
    String hinhanh;
   //Constructor
-  User_Model({
+  UserModel({
     required this.id,
     required this.sdt,
     required this.hoten,
@@ -32,8 +32,8 @@ class User_Model{
 
 
   //this is a static method
-  factory User_Model.fromJson(Map<String, dynamic>json){
-    return User_Model(
+  factory UserModel.fromJson(Map<String, dynamic>json){
+    return UserModel(
         id: json['idnguoidung'],
         sdt: json['sdt'],
         hoten: json['hoten'],

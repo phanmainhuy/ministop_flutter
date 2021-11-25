@@ -4,4 +4,5 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
-List<User_Model> userModelList = [];
+List<UserModel> userModelList = [];
+// UserModel userModel;
