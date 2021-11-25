@@ -16,7 +16,7 @@ class UserModel{
    String hoten;
    String matkhau;
    String email;
-   String gioitinh;
+   // String gioitinh;
    String diachi;
    String hinhanh;
   //Constructor
@@ -26,7 +26,7 @@ class UserModel{
     required this.hoten,
     required this.matkhau,
     required this.email,
-    required this.gioitinh,
+    // required this.gioitinh,
     required this.diachi,
     required this.hinhanh,});
 
@@ -39,7 +39,7 @@ class UserModel{
         hoten: json['hoten'],
         matkhau: json['matkhau'],
         email: json['email'],
-        gioitinh: json['gioitinh'],
+        // gioitinh: json['gioitinh'],
         diachi: json['diachi'],
         hinhanh: json['hinhanh']
     );
