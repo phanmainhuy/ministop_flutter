@@ -7,14 +7,14 @@ class MyPasswordField extends StatelessWidget {
   final bool obserText;
   final TextEditingController controller;
   final String hintText;
-  final Function onTap;
+  // final Function onTap;
 
   const MyPasswordField({
     Key? key,
     required this.hintText,
     required this.obserText,
     required this.controller,
-    required this.onTap,
+    // required this.onTap,
 
   }) : super(key: key);
 
@@ -34,9 +34,10 @@ class MyPasswordField extends StatelessWidget {
             color: blue_ministopColor,
           ),
           suffixIcon: GestureDetector(
-            onTap: onTap(),
-            child: Icon(Icons.visibility,
-            color: blue_ministopColor
+            // onTap: onTap(),
+            child: Icon(
+              obserText == true ? Icons.visibility : Icons.visibility_off,
+              color: blue_ministopColor,
             ),
           ),
           border: InputBorder.none,

@@ -7,27 +7,27 @@ class UserProvider with ChangeNotifier {
   List<UserModel> userModelList = [];
   late UserModel userModel;
 
-  // Future<void> getUserData() async {
-  //   List<UserModel> newList = [];
-  //   User? currentUser =  FirebaseAuth.instance.currentUser;
-  //   QuerySnapshot userSnapShot =
-  //   await FirebaseFirestore.instance.collection("User").get();
-  //   userSnapShot.docs.forEach(
-  //         (element) {
-  //       if (currentUser!.uid == element.data()!["UserId"]) {
-  //         userModel = userModel(
-  //             id: element.data()["UserAddress"],
-  //             hinhanh: element.data()["UserImage"],
-  //             email: element.data()["UserEmail"],
-  //             matkhau: element.data()["UserName"],
-  //             sdt: element.data()["UserNumber"]);
-  //
-  //         newList.add(userModel);
-  //       }
-  //       userModelList = newList;
-  //     },
-  //   );
-  // }
+  Future<void> getUserData() async {
+    List<UserModel> newList = [];
+    User? currentUser =  FirebaseAuth.instance.currentUser;
+    QuerySnapshot userSnapShot =
+    await FirebaseFirestore.instance.collection("User").get();
+    userSnapShot.docs.forEach(
+          (element) {
+        if (currentUser!.uid == element["UserId"]) {
+          userModel = UserModel(
+              diachi: element["UserAddress"],
+              hinhanh: element["UserImage"],
+              email: element["UserEmail"],
+              hoten: element["UserName"],
+              sdt: element["UserNumber"]);
+
+          newList.add(userModel);
+        }
+        userModelList = newList;
+      },
+    );
+  }
 
 
 

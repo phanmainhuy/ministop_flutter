@@ -72,12 +72,12 @@ class _Login_UIState extends State<Login_UI> {
                   hintText: 'Mật khẩu',
                   obserText: obserText,
                   controller: password,
-                  onTap: () {
-                    FocusScope.of(context).unfocus();
-                    setState(() {
-                      obserText = !obserText;
-                    });
-                  },
+                  // onTap: () {
+                  //   FocusScope.of(context).unfocus();
+                  //   setState(() {
+                  //     obserText = !obserText;
+                  //   });
+                  // },
                 ),
               ),
               // SizedBox(height: 10,),

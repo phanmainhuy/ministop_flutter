@@ -11,20 +11,20 @@ import 'package:ministop/Login/Login_UI.dart';
 
 
 class UserModel{
-   String id;
+   // String id;
    String sdt;
    String hoten;
-   String matkhau;
+   // String matkhau;
    String email;
    // String gioitinh;
    String diachi;
    String hinhanh;
   //Constructor
   UserModel({
-    required this.id,
+    // required this.id,
     required this.sdt,
     required this.hoten,
-    required this.matkhau,
+    // required this.matkhau,
     required this.email,
     // required this.gioitinh,
     required this.diachi,
@@ -34,10 +34,10 @@ class UserModel{
   //this is a static method
   factory UserModel.fromJson(Map<String, dynamic>json){
     return UserModel(
-        id: json['idnguoidung'],
+        // id: json['idnguoidung'],
         sdt: json['sdt'],
         hoten: json['hoten'],
-        matkhau: json['matkhau'],
+        // matkhau: json['matkhau'],
         email: json['email'],
         // gioitinh: json['gioitinh'],
         diachi: json['diachi'],

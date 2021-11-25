@@ -32,7 +32,6 @@ final TextEditingController address = TextEditingController();
 
 class _Register_UIState extends State<Register_UI> {
 
-
 //build
   @override
   Widget build(BuildContext context) {
@@ -126,11 +125,11 @@ class _Register_UIState extends State<Register_UI> {
         "UserAddress": address.text,
         "UserNumber": phoneNumber.text,
       });
-
     }
-    catch(error){
+    catch (error) {
 
     };
+  }
       // Navigator.of(context)
       //     .pushReplacement(MaterialPageRoute(builder: (ctx) => Home_UI()));
       // setState(() {
@@ -199,18 +198,20 @@ class _Register_UIState extends State<Register_UI> {
 
 
     }
-  }
+
 
 
   Widget _builtButtonRegister(BuildContext context) {
     return Column(
       children: <Widget>[
         _buildTextRegister(context),
-
         SizedBox(
           width: 330,
           height: 50,
-          child: ElevatedButton(
+          child:
+
+          isLoading == false?
+          ElevatedButton(
             child: Text("Đăng ký tài khoản".toUpperCase(),
                 style: TextStyle(fontSize: 15)),
             style: ButtonStyle(
@@ -224,8 +225,9 @@ class _Register_UIState extends State<Register_UI> {
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(19.0),
                         side: BorderSide(color: Colors.white)))),
-            onPressed: () =>
+            onPressed: ()
             {
+
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -233,8 +235,11 @@ class _Register_UIState extends State<Register_UI> {
                     return Login_UI();
                   },
                 ),
-              )
+              );
             },
+          )
+        :Center(
+            child: CircularProgressIndicator(),
           ),
         ),
         SizedBox(
@@ -257,7 +262,7 @@ class _Register_UIState extends State<Register_UI> {
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(19.0),
                         side: BorderSide(color: Colors.white)))),
-            onPressed: () =>
+            onPressed: ()
             {
               Navigator.pushReplacement(
                 context,
@@ -266,13 +271,14 @@ class _Register_UIState extends State<Register_UI> {
                     return Login_UI();
                   },
                 ),
-              )
+              );
             },
           ),
         ),
       ],
     );
   }
+
 
 
   Widget _buildTextRegister(BuildContext context) {
@@ -304,13 +310,13 @@ class _Register_UIState extends State<Register_UI> {
               hintText: 'Mật khẩu',
               obserText: obserText,
               controller: password,
-              onTap: () {
-                FocusScope.of(context).unfocus();
-                // setState(() {
-                  obserText = !obserText;
-
-                // });
-              },
+              // onTap: () {
+              //   FocusScope.of(context).unfocus();
+              //   // setState(() {
+              //     obserText = !obserText;
+              //
+              //   // });
+              // },
 
             ),
           ),

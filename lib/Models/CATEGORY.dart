@@ -4,24 +4,28 @@ import 'GLOBAL.dart';
 import 'package:http/http.dart' as http;
 
 class Category_Model{
-  int id;
-  String tendm;
-  String hinhanh;
 
-  //Constructor
-  Category_Model({required this.id, required this.tendm, required this.hinhanh});
+  final String image;
+  Category_Model({required this.image});
 
-  //this is a static method
-  factory Category_Model.fromJson(Map<String, dynamic>json){
-    return Category_Model(
-        id: json['iddanhmuc'],
-        tendm: json['tendanhmuc'],
-        hinhanh: json['hinhanh'],
-    );
-    
+
   }
 
-}
+
+  //Constructor
+
+
+  // //this is a static method
+  // factory Category_Model.fromJson(Map<String, dynamic>json){
+  //   return Category_Model(
+  //       id: json['iddanhmuc'],
+  //       tendm: json['tendanhmuc'],
+  //       hinhanh: json['hinhanh'],
+  //   );
+  //
+  // }
+
+
 
 
 
