@@ -70,7 +70,14 @@ class _Login_UIState extends State<Login_UI> {
                 height: 70,
                 child: MyPasswordField(
                   hintText: 'Mật khẩu',
-                  onChanged: (value) {},
+                  obserText: obserText,
+                  controller: password,
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    setState(() {
+                      obserText = !obserText;
+                    });
+                  },
                 ),
               ),
               // SizedBox(height: 10,),

@@ -3,20 +3,29 @@ import 'package:ministop/components/text_field_container.dart';
 import 'package:ministop/constants.dart';
 
 class MyPasswordField extends StatelessWidget {
-  final ValueChanged<String> onChanged;
+  // final ValueChanged<String> onChanged;
+  final bool obserText;
+  final TextEditingController controller;
   final String hintText;
+  final Function onTap;
+
   const MyPasswordField({
     Key? key,
     required this.hintText,
-    required this.onChanged,
+    required this.obserText,
+    required this.controller,
+    required this.onTap,
+
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextFormField(
-        obscureText: true,
-        onChanged: onChanged,
+        obscureText: obserText,
+        controller: controller,
+
+
         cursorColor: blue_ministopColor,
         decoration: InputDecoration(
           hintText: hintText,
@@ -24,9 +33,11 @@ class MyPasswordField extends StatelessWidget {
             Icons.lock,
             color: blue_ministopColor,
           ),
-          suffixIcon: Icon(
-            Icons.visibility,
-            color: blue_ministopColor,
+          suffixIcon: GestureDetector(
+            onTap: onTap(),
+            child: Icon(Icons.visibility,
+            color: blue_ministopColor
+            ),
           ),
           border: InputBorder.none,
         ),
