@@ -122,6 +122,9 @@ class _Home_UIState extends State<Home_UI> {
                 SizedBox(height: 10,),
               //danh muc sp
                 _buildCategory(),
+
+                Text("Sản phẩm khác", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: blue_ministopColor),),
+
               ],
             ),
           ),
@@ -136,18 +139,19 @@ class _Home_UIState extends State<Home_UI> {
     return Row(
         children: sandwichIcon.map((e) {
           return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) =>Login_UI(),
-                  //     ListProduct(
-                  //   name: "Sandwich",
-                  //   snapShot: sandwich,
-                  //   isCategory: true,
-                  // ),
-                ),
-              );
-            },
+              onTap: () {},
+            // {
+            //   Navigator.of(context).push(
+            //     MaterialPageRoute(
+            //       builder: (ctx) =>Login_UI(),
+            //       //     ListProduct(
+            //       //   name: "Sandwich",
+            //       //   snapShot: sandwich,
+            //       //   isCategory: true,
+            //       // ),
+            //     ),
+            //   );
+            // },
             child: _buildCategoryProduct(image: e.image, color: 0xff33dcfd),
           );
         }).toList());
@@ -159,18 +163,19 @@ class _Home_UIState extends State<Home_UI> {
     return Row(
         children: sushiIcon.map((e) {
           return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) =>Login_UI(),
-                    //   ListProduct(
-                    // name: "sushi",
-                    // snapShot: sushi,
-                    // isCategory: true,
-                  // ),
-                ),
-              );
-            },
+            onTap: () {},
+            // {
+            //   Navigator.of(context).push(
+            //     MaterialPageRoute(
+            //       builder: (ctx) =>Login_UI(),
+            //         //   ListProduct(
+            //         // name: "sushi",
+            //         // snapShot: sushi,
+            //         // isCategory: true,
+            //       // ),
+            //     ),
+            //   );
+            // },
             child: _buildCategoryProduct(image: e.image, color: 0xff33dcfd),
           );
         }).toList());
@@ -182,19 +187,20 @@ class _Home_UIState extends State<Home_UI> {
     return Row(
         children: dessertIcon.map((e) {
           return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) => Login_UI(),
-                  //     ListProduct(
-                  //   name: "dessert",
-                  //   snapShot: dessert,
-                  //   isCategory: true,
-                  // ),
-
-                ),
-              );
-            },
+              onTap: () {},
+            // {
+            //   Navigator.of(context).push(
+            //     MaterialPageRoute(
+            //       builder: (ctx) => Login_UI(),
+            //       //     ListProduct(
+            //       //   name: "dessert",
+            //       //   snapShot: dessert,
+            //       //   isCategory: true,
+            //       // ),
+            //
+            //     ),
+            //   );
+            // },
             child: _buildCategoryProduct(image: e.image, color: 0xff33dcfd),
           );
         }).toList());
@@ -214,6 +220,7 @@ class _Home_UIState extends State<Home_UI> {
       ),
     );
   }
+
   Widget _buildCategory() {
     return
         Container(
@@ -228,7 +235,7 @@ class _Home_UIState extends State<Home_UI> {
         );
   }
 
-  //useracount
+  //useracount drawer
   Widget _buildUserAccountsDrawerHeader() {
     List<UserModel> userModel = UserProvider().userModelList;
     return Column(
@@ -334,13 +341,15 @@ class _Home_UIState extends State<Home_UI> {
   }
 
   void getCallAllFunction() {
+    //get product of list
     categoryProvider.getSandwichData();
     categoryProvider.getDessertData();
     categoryProvider.getSushiData();
+
+    //get image Category
     categoryProvider.getImgSandwichData();
     categoryProvider.getImgCateDessertData();
     categoryProvider.getImgSushiData();
-
     // categoryProvider.getDressIconData();
     // productProvider.getNewAchiveData();
     // productProvider.getFeatureData();
