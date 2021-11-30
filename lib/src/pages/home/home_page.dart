@@ -14,6 +14,8 @@ import 'product_provider.dart';
 import 'user_provider.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
@@ -33,7 +35,7 @@ class HomePage extends StatelessWidget {
           provider.onLogOutSuccess = () {
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
               builder: (context) {
-                return LoginPage();
+                return const LoginPage();
               },
             ), (predicate) => predicate.isFirst);
           };
@@ -66,34 +68,34 @@ class _HomePage extends StatelessWidget {
       drawer: _buildMyDrawer(context),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: AppColor.yellow_ministop,
-        title: Container(
+        backgroundColor: AppColor.yellow,
+        title: SizedBox(
           height: 50,
           child: Row(
             children: [
               AppDrawable.logo(width: 60, height: 100),
-              Expanded(
+              const Expanded(
                   child: Text(
                 " Deliciously - Friendly - Conveniently",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13.5,
                     overflow: TextOverflow.ellipsis,
-                    color: AppColor.blue_ministopColor),
+                    color: AppColor.blue),
               )),
             ],
           ),
         ),
-        iconTheme: IconThemeData(color: AppColor.blue_ministopColor),
+        iconTheme: const IconThemeData(color: AppColor.blue),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () => {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return CartPage();
+                    return const CartPage();
                   },
                 ),
               )
@@ -101,46 +103,44 @@ class _HomePage extends StatelessWidget {
           )
         ],
         leading: IconButton(
-          icon: Icon(Icons.article),
+          icon: const Icon(Icons.article),
           onPressed: context.read<HomeProvider>().openDrawer,
         ),
       ),
       body: SafeArea(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              CarouselSlider(
-                options: CarouselOptions(
-                  aspectRatio: 2.0,
-                  enlargeCenterPage: true,
-                  enableInfiniteScroll: false,
-                  initialPage: 2,
-                  autoPlay: true,
-                ),
-                items: _buildImageSliders,
+        child: Column(
+          children: <Widget>[
+            CarouselSlider(
+              options: CarouselOptions(
+                aspectRatio: 2.0,
+                enlargeCenterPage: true,
+                enableInfiniteScroll: false,
+                initialPage: 2,
+                autoPlay: true,
               ),
-              SizedBox(height: 10),
-              Text(
-                "Danh mục sản phẩm",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: AppColor.blue_ministopColor),
-              ),
-              // SizedBox(height: 10,),
-              //danh muc sp
+              items: _buildImageSliders,
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              "Danh mục sản phẩm",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: AppColor.blue),
+            ),
+            // SizedBox(height: 10,),
+            //danh muc sp
 
-              _buildCategory,
+            _buildCategory,
 
-              Text(
-                "Sản phẩm khác",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: AppColor.blue_ministopColor),
-              ),
-            ],
-          ),
+            const Text(
+              "Sản phẩm khác",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: AppColor.blue),
+            ),
+          ],
         ),
       ),
     );
@@ -148,7 +148,7 @@ class _HomePage extends StatelessWidget {
 
   Widget _buildSandwichIcon(CategoryProvider provider) {
     final sandwichIcon = provider.imgCateSandwich;
-    final sandwich = provider.sandwichList;
+    //final sandwich = provider.sandwichList;
 
     return Row(
         mainAxisSize: MainAxisSize.min,
@@ -173,7 +173,7 @@ class _HomePage extends StatelessWidget {
 
   Widget _buildSushiIcon(CategoryProvider provider) {
     final sushiIcon = provider.sushiIconData;
-    final sushi = provider.sushiList;
+    //final sushi = provider.sushiList;
 
     return Row(
         mainAxisSize: MainAxisSize.min,
@@ -199,7 +199,7 @@ class _HomePage extends StatelessWidget {
 
   Widget _buildDessertIcon(CategoryProvider provider) {
     final dessertIcon = provider.dessertIconData;
-    final dessert = provider.dessertList;
+    //final dessert = provider.dessertList;
 
     return Row(
         mainAxisSize: MainAxisSize.min,
@@ -238,22 +238,16 @@ class _HomePage extends StatelessWidget {
 
   Widget get _buildCategory =>
       Consumer<CategoryProvider>(builder: (context, provider, child) {
-        return Container(
+        return SizedBox(
           height: 90,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(
-                width: 20,
-              ),
+              const SizedBox(width: 20),
               _buildDessertIcon(provider),
-              SizedBox(
-                width: 20,
-              ),
+              const SizedBox(width: 20),
               _buildSandwichIcon(provider),
-              SizedBox(
-                width: 20,
-              ),
+              const SizedBox(width: 20),
               _buildSushiIcon(provider),
             ],
           ),
@@ -268,15 +262,15 @@ class _HomePage extends StatelessWidget {
           return UserAccountsDrawerHeader(
             accountName: Text(
               userData?.hoten ?? '',
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             ),
-            currentAccountPicture: CircleAvatar(
+            currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.white,
               backgroundImage: AppDrawable.userAssetImage,
             ),
-            decoration: BoxDecoration(color: Color(0xfff2f2f2)),
+            decoration: const BoxDecoration(color: Color(0xfff2f2f2)),
             accountEmail: Text(userData?.email ?? '',
-                style: TextStyle(color: Colors.black)),
+                style: const TextStyle(color: Colors.black)),
           );
         },
       );
@@ -309,8 +303,8 @@ class _HomePage extends StatelessWidget {
           // ),
           ListTile(
             onTap: context.read<HomeProvider>().logOut,
-            leading: Icon(Icons.exit_to_app),
-            title: Text("Logout"),
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text("Logout"),
           ),
         ],
       ),
@@ -322,8 +316,8 @@ class _HomePage extends StatelessWidget {
         builder: (context, homeColor, _) => ListTile(
           selected: homeColor,
           onTap: context.read<HomeProvider>().selectHomeTile,
-          leading: Icon(Icons.home),
-          title: Text("Home"),
+          leading: const Icon(Icons.home),
+          title: const Text("Home"),
         ),
       );
 
@@ -334,10 +328,10 @@ class _HomePage extends StatelessWidget {
           onTap: () {
             context.read<HomeProvider>().selectCheckOutTile();
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (ctx) => CartPage()));
+                .push(MaterialPageRoute(builder: (ctx) => const CartPage()));
           },
-          leading: Icon(Icons.shopping_cart),
-          title: Text("Cart"),
+          leading: const Icon(Icons.shopping_cart),
+          title: const Text("Cart"),
         ),
       );
 
@@ -349,66 +343,52 @@ class _HomePage extends StatelessWidget {
             context.read<HomeProvider>().selectProfileTile();
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (ctx) => ProfilePage(),
+                builder: (ctx) => const ProfilePage(),
               ),
             );
           },
-          leading: Icon(Icons.info),
-          title: Text("Profile"),
+          leading: const Icon(Icons.info),
+          title: const Text("Profile"),
         ),
       );
 
-  void getCallAllFunction() {
-    // categoryProvider.getDressIconData();
-    // productProvider.getNewAchiveData();
-    // productProvider.getFeatureData();
-    // productProvider.getHomeFeatureData();
-    // productProvider.getHomeAchiveData();
-
-    // categoryProvider.getPantIconData();
-    // categoryProvider.getTieIconData();
-    // productProvider.getUserData();
-  }
-
   List<Widget> get _buildImageSliders => imgList
       .map((item) => Container(
-            child: Container(
-              margin: EdgeInsets.all(5.0),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  child: Stack(
-                    children: <Widget>[
-                      Image.asset(item, fit: BoxFit.cover, width: 1000.0),
-                      Positioned(
-                        bottom: 0.0,
-                        left: 0.0,
-                        right: 0.0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color.fromARGB(200, 0, 0, 0),
-                                Color.fromARGB(0, 0, 0, 0)
-                              ],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                            ),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 20.0),
-                          // child: Text(
-                          //   'No. ${imgList.indexOf(item)} image',
-                          //   style: TextStyle(
-                          //     color: Colors.white,
-                          //     fontSize: 20.0,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // ),
-                        ),
+        margin: const EdgeInsets.all(5.0),
+        child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(item, fit: BoxFit.cover, width: 1000.0),
+                Positioned(
+                  bottom: 0.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(200, 0, 0, 0),
+                          Color.fromARGB(0, 0, 0, 0)
+                        ],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
                       ),
-                    ],
-                  )),
-            ),
-          ))
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
+                    // child: Text(
+                    //   'No. ${imgList.indexOf(item)} image',
+                    //   style: TextStyle(
+                    //     color: Colors.white,
+                    //     fontSize: 20.0,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                  ),
+                ),
+              ],
+            )),
+      ))
       .toList();
 }

@@ -4,14 +4,18 @@ class SingleProduct extends StatelessWidget {
   final String image;
   final double price;
   final String name;
-  SingleProduct({required this.image,required this.name,required this.price});
+
+  const SingleProduct(
+      {required this.image, required this.name, required this.price, Key? key})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    double width, height;
-    width = MediaQuery.of(context).size.width;
-    height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Card(
-      child: Container(
+      child: SizedBox(
         height: height * 0.3,
         width: width * 0.2 * 2 + 10,
         child: Column(
@@ -19,7 +23,7 @@ class SingleProduct extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Container(
                   width: 160,
                   decoration: BoxDecoration(
@@ -36,16 +40,14 @@ class SingleProduct extends StatelessWidget {
                 children: [
                   Text(
                     "\$ ${price.toString()}",
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
                         color: Color(0xff9b96d6)),
                   ),
-                  Container(
-                    child: Text(
-                      name,
-                      style: TextStyle(fontSize: 15),
-                    ),
+                  Text(
+                    name,
+                    style: const TextStyle(fontSize: 15),
                   )
                 ],
               ),

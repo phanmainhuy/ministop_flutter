@@ -9,5 +9,5 @@ class AppDrawable {
         width: width,
       );
 
-  static final userAssetImage = AssetImage("assets/images/nguoidung/Cc.png");
+  static const userAssetImage = AssetImage("assets/images/nguoidung/Cc.png");
 }

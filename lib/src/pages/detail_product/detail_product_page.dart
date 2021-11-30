@@ -8,8 +8,8 @@ class DetailProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chi tiết sản phẩm'),
-        backgroundColor: AppColor.blue_ministopColor,
+        title: const Text('Chi tiết sản phẩm'),
+        backgroundColor: AppColor.blue,
       ),
     );
   }

@@ -26,11 +26,11 @@ class RoundedInputField extends StatelessWidget {
         controller: controller,
         // validator: validator(),
 
-        cursorColor: AppColor.blue_ministopColor,
+        cursorColor: AppColor.blue,
         decoration: InputDecoration(
           icon: Icon(
             icon,
-            color: AppColor.blue_ministopColor,
+            color: AppColor.blue,
           ),
           hintText: hintText,
           border: InputBorder.none,

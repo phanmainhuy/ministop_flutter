@@ -9,16 +9,21 @@ import 'resources/app_color.dart';
 class MyApp extends StatelessWidget {
   final _auth = locator<FireBaseAuth>();
 
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+  static BuildContext get context => navigatorKey.currentContext!;
+
   MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        navigatorKey: navigatorKey,
         theme: ThemeData(
-          primaryColor: AppColor.yellow_ministop,
-          iconTheme: IconThemeData(color: Colors.white),
+          primaryColor: AppColor.yellow,
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
         debugShowCheckedModeBanner: false,
-        home: _auth.isLogin ? HomePage() : LoginPage());
+        home: _auth.isLogin ? const HomePage() : const LoginPage());
   }
 }

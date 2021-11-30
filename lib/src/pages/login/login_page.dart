@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return HomePage();
+                return const HomePage();
               },
             ),
           );
@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
 
         return provider;
       },
-      child: _LoginPage(),
+      child: const _LoginPage(),
     );
   }
 }
@@ -43,29 +43,29 @@ class _LoginPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: AppColor.yellow_ministop,
+      backgroundColor: AppColor.yellow,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               AppDrawable.logo(width: size.width * 0.60),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 "CỬA HÀNG TIỆN LỢI",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
-                    color: AppColor.blue_ministopColor),
+                    color: AppColor.blue),
               ),
-              Text(
+              const Text(
                 "MINISTOP",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
-                    color: AppColor.blue_ministopColor),
+                    color: AppColor.blue),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SizedBox(
                 width: 330,
                 height: 70,
@@ -98,57 +98,56 @@ class _LoginPage extends StatelessWidget {
                 height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
+                  children: const <Widget>[
                     CheckBoxRemember(),
                     Text('Lưu mật khẩu'),
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               SizedBox(
                 width: 330,
                 height: 50,
                 child: ElevatedButton(
                     child: Text("Đăng nhập".toUpperCase(),
-                        style: TextStyle(fontSize: 15)),
+                        style: const TextStyle(fontSize: 15)),
                     style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.all(15)),
+                            const EdgeInsets.all(15)),
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            AppColor.blue_ministopColor),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(19.0),
-                                    side: BorderSide(color: Colors.white)))),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(AppColor.blue),
+                        shape: MaterialStateProperty
+                            .all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(19.0),
+                                side: const BorderSide(color: Colors.white)))),
                     onPressed: context.read<LoginProvider>().onLogin),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               SizedBox(
                 width: 330,
                 height: 50,
                 child: ElevatedButton(
                   child: Text("Đăng ký tài khoản".toUpperCase(),
-                      style: TextStyle(fontSize: 15)),
+                      style: const TextStyle(fontSize: 15)),
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.all(15)),
+                          const EdgeInsets.all(15)),
                       foregroundColor:
                           MaterialStateProperty.all<Color>(Colors.white),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          AppColor.blue_ministopColor),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(AppColor.blue),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(19.0),
-                              side: BorderSide(color: Colors.white)))),
+                              side: const BorderSide(color: Colors.white)))),
                   onPressed: () => {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return RegisterPage();
+                          return const RegisterPage();
                         },
                       ),
                     ),
@@ -174,6 +173,7 @@ class CheckBoxRemember extends StatefulWidget {
 class _CheckBoxRememberState extends State<CheckBoxRemember> {
   bool isChecked = false;
 
+  @override
   Widget build(BuildContext context) {
     Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -186,7 +186,7 @@ class _CheckBoxRememberState extends State<CheckBoxRemember> {
         return Colors.blue;
       }
 
-      return AppColor.blue_ministopColor;
+      return AppColor.blue;
     }
 
     return Checkbox(

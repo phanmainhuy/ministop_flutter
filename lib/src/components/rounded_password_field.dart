@@ -25,18 +25,18 @@ class MyPasswordField extends StatelessWidget {
       child: TextFormField(
         obscureText: obserText,
         controller: controller,
-        cursorColor: AppColor.blue_ministopColor,
+        cursorColor: AppColor.blue,
         decoration: InputDecoration(
           hintText: hintText,
-          icon: Icon(
+          icon: const Icon(
             Icons.lock,
-            color: AppColor.blue_ministopColor,
+            color: AppColor.blue,
           ),
           suffixIcon: GestureDetector(
             // onTap: onTap(),
             child: Icon(
               obserText == true ? Icons.visibility : Icons.visibility_off,
-              color: AppColor.blue_ministopColor,
+              color: AppColor.blue,
             ),
           ),
           border: InputBorder.none,

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:ministop/src/application.dart';
 import 'package:ministop/src/base/di/locator.dart';
 import 'package:ministop/src/services/network/firebase_auth.dart';
 import 'package:ministop/src/utils/validator.dart';
@@ -29,13 +30,12 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final result = await _auth.register(
+      final _ = await _auth.register(
           email: email.text,
           password: password.text,
           username: userName.text,
           address: address.text,
           phoneNumber: phoneNumber.text);
-      print(result);
 
       isLoading = false;
       notifyListeners();
@@ -79,18 +79,17 @@ class RegisterProvider extends ChangeNotifier {
         password.text.isEmpty &&
         phoneNumber.text.isEmpty &&
         address.text.isEmpty) {
-      scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
+      ScaffoldMessenger.of(MyApp.context).showSnackBar(
+        const SnackBar(
           content: Text("All Flied Are Empty"),
         ),
       );
-
       return false;
     }
 
     if (userName.text.length < 6) {
-      scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
+      ScaffoldMessenger.of(MyApp.context).showSnackBar(
+        const SnackBar(
           content: Text("Name Must Be 6 "),
         ),
       );
@@ -98,8 +97,8 @@ class RegisterProvider extends ChangeNotifier {
     }
 
     if (email.text.isEmpty) {
-      scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
+      ScaffoldMessenger.of(MyApp.context).showSnackBar(
+        const SnackBar(
           content: Text("Email Is Empty"),
         ),
       );
@@ -107,8 +106,8 @@ class RegisterProvider extends ChangeNotifier {
     }
 
     if (!Validator.email(email.text)) {
-      scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
+      ScaffoldMessenger.of(MyApp.context).showSnackBar(
+        const SnackBar(
           content: Text("Please Try Vaild Email"),
         ),
       );
@@ -116,8 +115,8 @@ class RegisterProvider extends ChangeNotifier {
     }
 
     if (password.text.isEmpty) {
-      scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
+      ScaffoldMessenger.of(MyApp.context).showSnackBar(
+        const SnackBar(
           content: Text("Password Is Empty"),
         ),
       );
@@ -125,8 +124,8 @@ class RegisterProvider extends ChangeNotifier {
     }
 
     if (password.text.length < 8) {
-      scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
+      ScaffoldMessenger.of(MyApp.context).showSnackBar(
+        const SnackBar(
           content: Text("Password  Is Too Short"),
         ),
       );
@@ -134,8 +133,8 @@ class RegisterProvider extends ChangeNotifier {
     }
 
     if (phoneNumber.text.length < 11 || phoneNumber.text.length > 11) {
-      scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
+      ScaffoldMessenger.of(MyApp.context).showSnackBar(
+        const SnackBar(
           content: Text("Phone Number Must Be 11 "),
         ),
       );
@@ -143,8 +142,8 @@ class RegisterProvider extends ChangeNotifier {
     }
 
     if (address.text.isEmpty) {
-      scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
+      ScaffoldMessenger.of(MyApp.context).showSnackBar(
+        const SnackBar(
           content: Text("Adress Is Empty "),
         ),
       );

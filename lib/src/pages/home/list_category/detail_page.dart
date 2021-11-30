@@ -3,33 +3,34 @@ import 'package:ministop/src/components/my_button.dart';
 import 'package:ministop/src/pages/cart/cart_page.dart';
 import 'package:ministop/src/pages/home/home_page.dart';
 import 'package:ministop/src/pages/home/product_provider.dart';
-import 'package:provider/provider.dart';
 
-class DetailScreen extends StatefulWidget {
+class DetailPage extends StatefulWidget {
   final String image;
   final String name;
   final double price;
 
-  DetailScreen({required this.image, required this.name, required this.price});
+  const DetailPage(
+      {required this.image, required this.name, required this.price, Key? key})
+      : super(key: key);
 
   @override
-  _DetailScreenState createState() => _DetailScreenState();
+  _DetailPageState createState() => _DetailPageState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _DetailPageState extends State<DetailPage> {
   int count = 1;
 
-  final TextStyle myStyle = TextStyle(
+  final TextStyle myStyle = const TextStyle(
     fontSize: 18,
   );
 
   Widget _buildImage() {
     return Center(
-      child: Container(
+      child: SizedBox(
         width: 380,
         child: Card(
           child: Container(
-            padding: EdgeInsets.all(13),
+            padding: const EdgeInsets.all(13),
             child: Container(
               height: 260,
               decoration: BoxDecoration(
@@ -46,7 +47,7 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Widget _buildNameToDescriptionPart() {
-    return Container(
+    return SizedBox(
       height: 100,
       child: Row(
         children: <Widget>[
@@ -57,7 +58,7 @@ class _DetailScreenState extends State<DetailScreen> {
               Text(widget.name, style: myStyle),
               Text(
                 "\$ ${widget.price.toString()}",
-                style: TextStyle(
+                style: const TextStyle(
                     color: Color(0xff9b96d6),
                     fontSize: 18,
                     fontWeight: FontWeight.bold),
@@ -70,11 +71,11 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  Widget _buildDiscription() {
-    return Container(
+  Widget _buildDescription() {
+    return SizedBox(
       height: 170,
       child: Wrap(
-        children: <Widget>[
+        children: const <Widget>[
           Text(
             "Discription build",
             style: TextStyle(fontSize: 16),
@@ -88,27 +89,23 @@ class _DetailScreenState extends State<DetailScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         Text(
           "Quentity",
           style: myStyle,
         ),
-        SizedBox(
-          height: 10,
-        ),
+        const SizedBox(height: 10),
         Container(
           height: 40,
           width: 130,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xff746bc9),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               GestureDetector(
-                child: Icon(
+                child: const Icon(
                   Icons.remove,
                   color: Colors.white,
                 ),
@@ -122,10 +119,10 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
               Text(
                 count.toString(),
-                style: TextStyle(fontSize: 18, color: Colors.white),
+                style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
               GestureDetector(
-                child: Icon(
+                child: const Icon(
                   Icons.add,
                   color: Colors.white,
                 ),
@@ -143,7 +140,7 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Widget _buildButtonPart(ProductProvider productProvider) {
-    return Container(
+    return SizedBox(
       height: 60,
       child: MyButton(
         name: "Add To Cart",
@@ -155,7 +152,7 @@ class _DetailScreenState extends State<DetailScreen> {
           );
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (ctx) => CartPage(),
+              builder: (ctx) => const CartPage(),
             ),
           );
         },
@@ -165,13 +162,11 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductProvider>(context);
-
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (ctx) => HomePage(),
+            builder: (ctx) => const HomePage(),
           ),
         );
 
@@ -180,49 +175,43 @@ class _DetailScreenState extends State<DetailScreen> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Detail Page", style: TextStyle(color: Colors.black)),
+          title:
+              const Text("Detail Page", style: TextStyle(color: Colors.black)),
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (ctx) => HomePage(),
+                  builder: (ctx) => const HomePage(),
                 ),
               );
             },
           ),
-          actions: <Widget>[
-            // NotificationButton(),
-          ],
         ),
-        body: Container(
-          child: ListView(
-            children: <Widget>[
-              _buildImage(),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _buildNameToDescriptionPart(),
-                    _buildDiscription(),
-                    //_buildSizePart(),
-                    //_buildColorPart(),
-                    _buildQuentityPart(),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    //_buildButtonPart(),
-                  ],
-                ),
+        body: ListView(
+          children: <Widget>[
+            _buildImage(),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _buildNameToDescriptionPart(),
+                  _buildDescription(),
+                  //_buildSizePart(),
+                  //_buildColorPart(),
+                  _buildQuentityPart(),
+                  const SizedBox(height: 15),
+                  //_buildButtonPart(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
