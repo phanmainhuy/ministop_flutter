@@ -194,14 +194,15 @@ class _RegisterPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(19.0),
                               side: BorderSide(color: Colors.white)))),
                   onPressed: () {
-                    Navigator.pushReplacement(
+                    context.read<RegisterProvider>().onSubmit();
+                    /*Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) {
                           return LoginPage();
                         },
                       ),
-                    );
+                    );*/
                   },
                 )
               : Center(child: CircularProgressIndicator()),
