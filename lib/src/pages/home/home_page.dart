@@ -50,11 +50,11 @@ class _HomePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     final categoryProvider = Provider.of<CategoryProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context);
-
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      key: context.read<HomeProvider>().scaffoldKey,
       drawer: _buildMyDrawer(context),
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -64,13 +64,15 @@ class _HomePage extends StatelessWidget {
           child: Row(
             children: [
               AppDrawable.logo(width: 60, height: 100),
-              Text(
+              Expanded(
+                  child: Text(
                 " Deliciously - Friendly - Conveniently",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13.5,
+                    overflow: TextOverflow.ellipsis,
                     color: AppColor.blue_ministopColor),
-              ),
+              )),
             ],
           ),
         ),
@@ -90,6 +92,10 @@ class _HomePage extends StatelessWidget {
             },
           )
         ],
+        leading: IconButton(
+          icon: Icon(Icons.article),
+          onPressed: context.read<HomeProvider>().openDrawer,
+        ),
       ),
       body: SafeArea(
         child: Container(
@@ -258,7 +264,7 @@ class _HomePage extends StatelessWidget {
         ),
         currentAccountPicture: CircleAvatar(
           backgroundColor: Colors.white,
-          backgroundImage: AssetImage("images/nguoidung/Cc.png"),
+          backgroundImage: AppDrawable.userAssetImage,
         ),
         decoration: BoxDecoration(color: Color(0xfff2f2f2)),
         accountEmail: Text(e.email, style: TextStyle(color: Colors.black)),

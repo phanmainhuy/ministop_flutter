@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeProvider extends ChangeNotifier {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   bool homeColor = true;
   bool checkoutColor = false;
   bool aboutColor = false;
@@ -35,6 +36,12 @@ class HomeProvider extends ChangeNotifier {
   }
 
   void logOut() {
-    FirebaseAuth.instance.signOut();
+    FirebaseAuth.instance.signOut().then((_) {
+      notifyListeners();
+    });
+  }
+
+  void openDrawer() {
+    scaffoldKey.currentState?.openDrawer();
   }
 }

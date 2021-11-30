@@ -178,8 +178,9 @@ class _RegisterPage extends StatelessWidget {
         builder: (context, isLoading, _) => SizedBox(
           width: 330,
           height: 50,
-          child: isLoading == false
-              ? ElevatedButton(
+          child: isLoading
+              ? Center(child: CircularProgressIndicator())
+              : ElevatedButton(
                   child: Text("Đăng ký tài khoản".toUpperCase(),
                       style: TextStyle(fontSize: 15)),
                   style: ButtonStyle(
@@ -204,8 +205,7 @@ class _RegisterPage extends StatelessWidget {
                       ),
                     );*/
                   },
-                )
-              : Center(child: CircularProgressIndicator()),
+                ),
         ),
       );
 }

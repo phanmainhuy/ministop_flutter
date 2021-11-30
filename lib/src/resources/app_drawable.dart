@@ -8,4 +8,6 @@ class AppDrawable {
         "assets/images/nguoidung/Cc.png",
         width: width,
       );
+
+  static final userAssetImage = AssetImage("assets/images/nguoidung/Cc.png");
 }
