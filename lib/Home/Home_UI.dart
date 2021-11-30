@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ministop/Cart/Cart_UI.dart';
 import 'package:ministop/Login/Login_UI.dart';
 import 'package:ministop/Models/CATEGORY.dart';
@@ -119,9 +120,10 @@ class _Home_UIState extends State<Home_UI> {
                 ),
                 SizedBox(height: 10,),
                 Text("Danh mục sản phẩm", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: blue_ministopColor),),
-                SizedBox(height: 10,),
-              //danh muc sp
-                _buildCategory(),
+                // SizedBox(height: 10,),
+                //danh muc sp
+                
+                _buildCategory,
 
                 Text("Sản phẩm khác", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: blue_ministopColor),),
 
@@ -133,10 +135,11 @@ class _Home_UIState extends State<Home_UI> {
     );
   }//build
 
-  Widget _buildSandwichIcon() {
-    List<Category_Model> sandwichIcon = CategoryProvider().getSandwichIconData;
-    List<Product_Model> sandwich = CategoryProvider().getSandwichList;
+  Widget _buildSandwichIcon(CategoryProvider provider) {
+    List<Category_Model> sandwichIcon = provider.getSandwichIconData;
+    List<Product_Model> sandwich = provider.getSandwichList;
     return Row(
+      mainAxisSize: MainAxisSize.min,
         children: sandwichIcon.map((e) {
           return GestureDetector(
               onTap: () {},
@@ -157,10 +160,11 @@ class _Home_UIState extends State<Home_UI> {
         }).toList());
   }
 
-  Widget _buildSushiIcon() {
-    List<Category_Model> sushiIcon = CategoryProvider().getSushiIconData;
-    List<Product_Model> sushi = CategoryProvider().getSushiList;
+  Widget _buildSushiIcon(CategoryProvider provider) {
+    List<Category_Model> sushiIcon = provider.getSushiIconData;
+    List<Product_Model> sushi = provider.getSushiList;
     return Row(
+      mainAxisSize: MainAxisSize.min,
         children: sushiIcon.map((e) {
           return GestureDetector(
             onTap: () {},
@@ -181,10 +185,11 @@ class _Home_UIState extends State<Home_UI> {
         }).toList());
   }
 
-  Widget _buildDessertIcon() {
-    List<Category_Model> dessertIcon = CategoryProvider().getDessertIconData;
-    List<Product_Model> dessert = CategoryProvider().getDessertList;
+  Widget _buildDessertIcon(CategoryProvider provider) {
+    List<Category_Model> dessertIcon = provider.getDessertIconData;
+    List<Product_Model> dessert = provider.getDessertList;
     return Row(
+      mainAxisSize: MainAxisSize.min,
         children: dessertIcon.map((e) {
           return GestureDetector(
               onTap: () {},
@@ -209,31 +214,34 @@ class _Home_UIState extends State<Home_UI> {
   //category
   Widget _buildCategoryProduct({required String image, required int color}) {
     return CircleAvatar(
-      maxRadius: 15* 0.1 / 2.1,
       backgroundColor: Color(color),
-      child: Container(
-        height: 40,
-        child: Image(
-          color: Colors.white,
-          image: NetworkImage(image),
-        ),
+      child: Image(
+        width: 100,
+        height: 100,
+        image: NetworkImage(image),
       ),
     );
   }
 
-  Widget _buildCategory() {
+  Widget get _buildCategory => Consumer<CategoryProvider>(
+    builder: (context, provider, child) {
     return
         Container(
-          height: 80,
-          child: Row(
+          height: 500,
+          child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _buildDessertIcon(),
-              _buildSandwichIcon(),
-              _buildSushiIcon(),
+              SizedBox(height: 20,),
+              _buildDessertIcon(provider),
+              SizedBox(height: 20,),
+              _buildSandwichIcon(provider),
+              SizedBox(height: 20,),
+              _buildSushiIcon(provider),
             ],
           ),
         );
-  }
+    }
+  );
 
   //useracount drawer
   Widget _buildUserAccountsDrawerHeader() {
@@ -341,15 +349,6 @@ class _Home_UIState extends State<Home_UI> {
   }
 
   void getCallAllFunction() {
-    //get product of list
-    categoryProvider.getSandwichData();
-    categoryProvider.getDessertData();
-    categoryProvider.getSushiData();
-
-    //get image Category
-    categoryProvider.getImgSandwichData();
-    categoryProvider.getImgCateDessertData();
-    categoryProvider.getImgSushiData();
     // categoryProvider.getDressIconData();
     // productProvider.getNewAchiveData();
     // productProvider.getFeatureData();

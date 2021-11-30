@@ -7,21 +7,27 @@ import 'package:ministop/Models/PRODUCT.dart';
 
 class CategoryProvider with ChangeNotifier {
   List<Product_Model> sandwich = [];
-  late Product_Model sandwichData;
   List<Product_Model> drink = [];
-  late Product_Model drinkData;
   List<Product_Model> sushi = [];
-  late Product_Model sushiData;
 
   List<Product_Model> dessert = [];
-  late Product_Model dessertData;
   List<Category_Model> imgCateSandwich = [];
-  late Category_Model imgCateSandwichData;
+
+  CategoryProvider() {
+    //get product of list
+    _getSandwichData();
+    _getDessertData();
+    _getSushiData();
+
+    //get image Category
+    _getImgSandwichData();
+    _getImgCateDessertData();
+    _getImgSushiData();
+  }
 
 //get img
-  Future<void> getImgSandwichData() async {
+  Future<void> _getImgSandwichData() async {
     List<Category_Model> newList = [];
-    await Firebase.initializeApp();
     QuerySnapshot sandwichSnapShot = await FirebaseFirestore.instance
         .collection("categoryimage")
         .doc("MtJVjhMJumreiTBimiyT")
@@ -29,7 +35,7 @@ class CategoryProvider with ChangeNotifier {
         .get();
     sandwichSnapShot.docs.forEach(
           (element) {
-            imgCateSandwichData = Category_Model(image: element["image"]);
+           final imgCateSandwichData = Category_Model(image: element["image"]);
         newList.add(imgCateSandwichData);
       },
     );
@@ -42,10 +48,9 @@ class CategoryProvider with ChangeNotifier {
 
   //get img
   List<Category_Model> imgCateSushi = [];
-  late Category_Model imgCateSushiData;
-  Future<void> getImgSushiData() async {
+
+  Future<void> _getImgSushiData() async {
     List<Category_Model> newList = [];
-    await Firebase.initializeApp();
     QuerySnapshot sandwichSnapShot = await FirebaseFirestore.instance
         .collection("categoryimage")
         .doc("MtJVjhMJumreiTBimiyT")
@@ -53,7 +58,7 @@ class CategoryProvider with ChangeNotifier {
         .get();
     sandwichSnapShot.docs.forEach(
           (element) {
-            imgCateSushiData = Category_Model(image: element["image"]);
+            final imgCateSushiData = Category_Model(image: element["image"]);
         newList.add(imgCateSushiData);
       },
     );
@@ -66,10 +71,9 @@ class CategoryProvider with ChangeNotifier {
 
   //get img
   List<Category_Model> imgCateDessert = [];
-  late Category_Model imgCateDessertData;
-  Future<void> getImgCateDessertData() async {
+
+  Future<void> _getImgCateDessertData() async {
     List<Category_Model> newList = [];
-    await Firebase.initializeApp();
     QuerySnapshot sandwichSnapShot = await FirebaseFirestore.instance
         .collection("categoryimage")
         .doc("MtJVjhMJumreiTBimiyT")
@@ -77,21 +81,21 @@ class CategoryProvider with ChangeNotifier {
         .get();
     sandwichSnapShot.docs.forEach(
           (element) {
-            imgCateDessertData = Category_Model(image: element["image"]);
+            final imgCateDessertData = Category_Model(image: element["image"]);
         newList.add(imgCateDessertData);
       },
     );
     imgCateDessert = newList;
     notifyListeners();
   }
+
   List<Category_Model> get getDessertIconData {
     return imgCateDessert;
   }
 
   //sandwich
-  Future<void> getSandwichData() async {
+  Future<void> _getSandwichData() async {
     List<Product_Model> newList = [];
-    await Firebase.initializeApp();
     QuerySnapshot shirtSnapShot = await FirebaseFirestore.instance
         .collection("category")
         .doc("EE0EGk3jFHbcL1ioSad6")
@@ -99,10 +103,10 @@ class CategoryProvider with ChangeNotifier {
         .get();
     shirtSnapShot.docs.forEach(
           (element) {
-        sandwichData = Product_Model(
+        final sandwichData = Product_Model(
             image: element["image"],
             name: element["name"],
-            price: element["price"]);
+            price: double.parse(element["price"]));
         newList.add(sandwichData);
       },
     );
@@ -115,8 +119,7 @@ class CategoryProvider with ChangeNotifier {
   }
 
   //sushi
-  Future<void> getSushiData() async {
-    await Firebase.initializeApp();
+  Future<void> _getSushiData() async {
     List<Product_Model> newList = [];
     QuerySnapshot shirtSnapShot = await FirebaseFirestore.instance
         .collection("category")
@@ -125,10 +128,10 @@ class CategoryProvider with ChangeNotifier {
         .get();
     shirtSnapShot.docs.forEach(
           (element) {
-        sushiData = Product_Model(
+        final sushiData = Product_Model(
             image: element["image"],
             name: element["name"],
-            price: element["price"]);
+            price: double.parse(element["price"]));
         newList.add(sushiData);
       },
     );
@@ -141,9 +144,8 @@ class CategoryProvider with ChangeNotifier {
   }
 
   //dessert
-  Future<void> getDessertData() async {
+  Future<void> _getDessertData() async {
     List<Product_Model> newList = [];
-    await Firebase.initializeApp();
     QuerySnapshot shirtSnapShot = await FirebaseFirestore.instance
         .collection("category")
         .doc("EE0EGk3jFHbcL1ioSad6")
@@ -151,10 +153,10 @@ class CategoryProvider with ChangeNotifier {
         .get();
     shirtSnapShot.docs.forEach(
           (element) {
-            dessertData = Product_Model(
+            final dessertData = Product_Model(
             image: element["image"],
             name: element["name"],
-            price: element["price"]);
+            price: double.parse(element["price"]));
         newList.add(dessertData);
       },
     );
