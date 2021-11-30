@@ -14,7 +14,22 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => LoginProvider(),
+      create: (ctx) {
+        final provider = LoginProvider();
+
+        provider.onLoginSuccess = () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return HomePage();
+              },
+            ),
+          );
+        };
+
+        return provider;
+      },
       child: _LoginPage(),
     );
   }
@@ -89,37 +104,26 @@ class _LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               SizedBox(
                 width: 330,
                 height: 50,
                 child: ElevatedButton(
-                  child: Text("Đăng nhập".toUpperCase(),
-                      style: TextStyle(fontSize: 15)),
-                  style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.all(15)),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          AppColor.blue_ministopColor),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(19.0),
-                              side: BorderSide(color: Colors.white)))),
-                  onPressed: () => {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return HomePage();
-                        },
-                      ),
-                    ),
-                  },
-                ),
+                    child: Text("Đăng nhập".toUpperCase(),
+                        style: TextStyle(fontSize: 15)),
+                    style: ButtonStyle(
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            EdgeInsets.all(15)),
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                            AppColor.blue_ministopColor),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(19.0),
+                                    side: BorderSide(color: Colors.white)))),
+                    onPressed: context.read<LoginProvider>().onLogin),
               ),
               SizedBox(height: 10),
               SizedBox(

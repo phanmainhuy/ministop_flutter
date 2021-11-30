@@ -9,6 +9,8 @@ class HomeProvider extends ChangeNotifier {
   bool contactUsColor = false;
   bool profileColor = false;
 
+  VoidCallback? onLogOutSuccess;
+
   void selectHomeTile() {
     homeColor = true;
     contactUsColor = false;
@@ -36,9 +38,8 @@ class HomeProvider extends ChangeNotifier {
   }
 
   void logOut() {
-    FirebaseAuth.instance.signOut().then((_) {
-      notifyListeners();
-    });
+    FirebaseAuth.instance.signOut();
+    onLogOutSuccess?.call();
   }
 
   void openDrawer() {

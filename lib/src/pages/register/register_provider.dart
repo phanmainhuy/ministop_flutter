@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ministop/src/base/di/locator.dart';
+import 'package:ministop/src/services/network/firebase_auth.dart';
 import 'package:ministop/src/utils/validator.dart';
 
 class RegisterProvider extends ChangeNotifier {
+  final _auth = locator<FireBaseAuth>();
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = false;
@@ -16,8 +17,7 @@ class RegisterProvider extends ChangeNotifier {
   final password = TextEditingController();
   final address = TextEditingController();
 
-  final firebaseAuth = FirebaseAuth.instance;
-  final fireStore = FirebaseFirestore.instance;
+  VoidCallback? onRegisterSuccess;
 
   //submit
   FutureOr<void> onSubmit() async {
@@ -29,9 +29,17 @@ class RegisterProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email.text, password: password.text);
+      final result = await _auth.register(
+          email: email.text,
+          password: password.text,
+          username: userName.text,
+          address: address.text,
+          phoneNumber: phoneNumber.text);
       print(result);
+
+      isLoading = false;
+      notifyListeners();
+      onRegisterSuccess?.call();
 
       // on PlatformException catch (error) {
       //   var message = "Please Check Your Internet Connection ";
@@ -58,27 +66,13 @@ class RegisterProvider extends ChangeNotifier {
       //
       //   print(error);
       // }
-      FirebaseFirestore.instance.collection("User").doc(result.user!.uid).set({
-        "UserName": userName.text,
-        "UserId": result.user!.uid,
-        "UserEmail": email.text,
-        "UserAddress": address.text,
-        "UserNumber": phoneNumber.text,
-      });
     } catch (error) {
       isLoading = false;
       notifyListeners();
     }
   }
 
-  // Navigator.of(context)
-  //     .pushReplacement(MaterialPageRoute(builder: (ctx) => Home_UI()));
-  // setState(() {
-  //   isLoading = false;
-  // });
-
   //validation
-
   bool _validateForm() {
     if (userName.text.isEmpty &&
         email.text.isEmpty &&

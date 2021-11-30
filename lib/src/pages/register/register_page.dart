@@ -12,7 +12,22 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => RegisterProvider(),
+      create: (ctx) {
+        final provider = RegisterProvider();
+
+        provider.onRegisterSuccess = () {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return LoginPage();
+              },
+            ),
+          );
+        };
+
+        return provider;
+      },
       child: _RegisterPage(),
     );
   }

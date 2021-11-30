@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:ministop/src/models/user_model.dart';
 import 'package:ministop/src/pages/cart/cart_page.dart';
 import 'package:ministop/src/pages/home/home_provider.dart';
+import 'package:ministop/src/pages/login/login_page.dart';
 import 'package:ministop/src/pages/profile/profile_page.dart';
 import 'package:ministop/src/resources/app_color.dart';
 import 'package:ministop/src/resources/app_drawable.dart';
@@ -25,7 +27,19 @@ class HomePage extends StatelessWidget {
         create: (context) => UserProvider(),
       ),
       Provider<HomeProvider>(
-        create: (context) => HomeProvider(),
+        create: (context) {
+          final provider = HomeProvider();
+
+          provider.onLogOutSuccess = () {
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+              builder: (context) {
+                return LoginPage();
+              },
+            ), (predicate) => predicate.isFirst);
+          };
+
+          return provider;
+        },
       ),
     ], child: _HomePage());
   }
@@ -47,12 +61,6 @@ class _HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    final categoryProvider = Provider.of<CategoryProvider>(context);
-    final productProvider = Provider.of<ProductProvider>(context);
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       key: context.read<HomeProvider>().scaffoldKey,
       drawer: _buildMyDrawer(context),
@@ -141,6 +149,7 @@ class _HomePage extends StatelessWidget {
   Widget _buildSandwichIcon(CategoryProvider provider) {
     final sandwichIcon = provider.imgCateSandwich;
     final sandwich = provider.sandwichList;
+
     return Row(
         mainAxisSize: MainAxisSize.min,
         children: sandwichIcon.map((e) {
@@ -191,6 +200,7 @@ class _HomePage extends StatelessWidget {
   Widget _buildDessertIcon(CategoryProvider provider) {
     final dessertIcon = provider.dessertIconData;
     final dessert = provider.dessertList;
+
     return Row(
         mainAxisSize: MainAxisSize.min,
         children: dessertIcon.map((e) {
@@ -251,31 +261,32 @@ class _HomePage extends StatelessWidget {
       });
 
   //useracount drawer
-  Widget _buildUserAccountsDrawerHeader() {
-    final userModel = UserProvider().userModelList;
-    return Column(
-        children: userModel.map((e) {
-      return UserAccountsDrawerHeader(
-        accountName: Text(
-          e.email,
-          style: TextStyle(color: Colors.black),
-        ),
-        currentAccountPicture: CircleAvatar(
-          backgroundColor: Colors.white,
-          backgroundImage: AppDrawable.userAssetImage,
-        ),
-        decoration: BoxDecoration(color: Color(0xfff2f2f2)),
-        accountEmail: Text(e.email, style: TextStyle(color: Colors.black)),
+  Widget get _buildUserAccountsDrawerHeader =>
+      Selector<UserProvider, UserModel?>(
+        selector: (context, provider) => provider.userData,
+        builder: (context, userData, _) {
+          return UserAccountsDrawerHeader(
+            accountName: Text(
+              userData?.hoten ?? '',
+              style: TextStyle(color: Colors.black),
+            ),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              backgroundImage: AppDrawable.userAssetImage,
+            ),
+            decoration: BoxDecoration(color: Color(0xfff2f2f2)),
+            accountEmail: Text(userData?.email ?? '',
+                style: TextStyle(color: Colors.black)),
+          );
+        },
       );
-    }).toList());
-  }
 
   //drawable
   Widget _buildMyDrawer(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          _buildUserAccountsDrawerHeader(),
+          _buildUserAccountsDrawerHeader,
           _buildHomeTile,
           _buildCheckOutTile,
           _buildProfileTile,

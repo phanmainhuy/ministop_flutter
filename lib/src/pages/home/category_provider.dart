@@ -1,10 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ministop/src/base/di/locator.dart';
 import 'package:ministop/src/models/category_model.dart';
 import 'package:ministop/src/models/product_model.dart';
+import 'package:ministop/src/services/network/fire_store.dart';
 
 class CategoryProvider with ChangeNotifier {
-  final _fireStore = FirebaseFirestore.instance;
+  final _fireStore = locator<FireStore>();
+
   List<ProductModel> _sandwich = [];
   List<ProductModel> _sushi = [];
   List<ProductModel> _dessert = [];
@@ -27,118 +29,49 @@ class CategoryProvider with ChangeNotifier {
 
   CategoryProvider() {
     //get product of list
-    _getSandwichData();
-    _getDessertData();
-    _getSushiData();
+    _fetchSandwichData();
+    _fetchDessertData();
+    _fetchSushiData();
 
     //get image Category
-    _getImgSandwichData();
-    _getImgCateDessertData();
-    _getImgSushiData();
-  }
-
-//get img
-  Future<void> _getImgSandwichData() async {
-    QuerySnapshot sandwichSnapShot = await _fireStore
-        .collection("categoryimage")
-        .doc("MtJVjhMJumreiTBimiyT")
-        .collection("sandwich")
-        .get();
-
-    _imgCateSandwich = sandwichSnapShot.docs.map(
-      (element) {
-        final imgCateSandwichData = CategoryModel(image: element["image"]);
-        return imgCateSandwichData;
-      },
-    ).toList();
-  }
-
-  //get img
-  Future<void> _getImgSushiData() async {
-    QuerySnapshot sandwichSnapShot = await _fireStore
-        .collection("categoryimage")
-        .doc("MtJVjhMJumreiTBimiyT")
-        .collection("sushi")
-        .get();
-    _imgCateSushi = sandwichSnapShot.docs.map(
-      (element) {
-        final imgCateSushiData = CategoryModel(image: element["image"]);
-        return imgCateSushiData;
-      },
-    ).toList();
-  }
-
-  //get img
-  Future<void> _getImgCateDessertData() async {
-    QuerySnapshot sandwichSnapShot = await _fireStore
-        .collection("categoryimage")
-        .doc("MtJVjhMJumreiTBimiyT")
-        .collection("dessert")
-        .get();
-    _imgCateDessert = sandwichSnapShot.docs.map(
-      (element) {
-        final imgCateDessertData = CategoryModel(image: element["image"]);
-        return imgCateDessertData;
-      },
-    ).toList();
-
-    notifyListeners();
+    _fetchImgSandwichData();
+    _fetchImgCateDessertData();
+    _fetchImgSushiData();
   }
 
   //sandwich
-  Future<void> _getSandwichData() async {
-    QuerySnapshot shirtSnapShot = await _fireStore
-        .collection("category")
-        .doc("EE0EGk3jFHbcL1ioSad6")
-        .collection("sandwich")
-        .get();
-    _sandwich = shirtSnapShot.docs.map(
-      (element) {
-        final sandwichData = ProductModel(
-            image: element["image"],
-            name: element["name"],
-            price: double.parse(element["price"]));
-        return sandwichData;
-      },
-    ).toList();
+  Future<void> _fetchSandwichData() async {
+    _sandwich = await _fireStore.fetchSandwichData();
+    notifyListeners();
+  }
+
+  //get img
+  Future<void> _fetchImgSandwichData() async {
+    _imgCateSandwich = await _fireStore.fetchImgSandwichData();
     notifyListeners();
   }
 
   //sushi
-  Future<void> _getSushiData() async {
-    QuerySnapshot shirtSnapShot = await _fireStore
-        .collection("category")
-        .doc("EE0EGk3jFHbcL1ioSad6")
-        .collection("sushi")
-        .get();
-    _sushi = shirtSnapShot.docs.map(
-      (element) {
-        final sushiData = ProductModel(
-            image: element["image"],
-            name: element["name"],
-            price: double.parse(element["price"]));
-        return sushiData;
-      },
-    ).toList();
+  Future<void> _fetchSushiData() async {
+    _sushi = await _fireStore.fetchSushiData();
+    notifyListeners();
+  }
+
+  //get img
+  Future<void> _fetchImgSushiData() async {
+    _imgCateSushi = await _fireStore.fetchImgSushiData();
     notifyListeners();
   }
 
   //dessert
-  Future<void> _getDessertData() async {
-    QuerySnapshot shirtSnapShot = await _fireStore
-        .collection("category")
-        .doc("EE0EGk3jFHbcL1ioSad6")
-        .collection("dessert")
-        .get();
-    _dessert = shirtSnapShot.docs.map(
-      (element) {
-        final dessertData = ProductModel(
-            image: element["image"],
-            name: element["name"],
-            price: double.parse(element["price"]));
-        return dessertData;
-      },
-    ).toList();
+  Future<void> _fetchDessertData() async {
+    _dessert = await _fireStore.fetchDessertData();
+    notifyListeners();
+  }
+
+  //get img
+  Future<void> _fetchImgCateDessertData() async {
+    _imgCateDessert = await _fireStore.fetchImgCateDessertData();
     notifyListeners();
   }
 

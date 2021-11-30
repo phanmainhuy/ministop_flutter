@@ -7,4 +7,10 @@ class LoginProvider extends ChangeNotifier {
   final password = TextEditingController();
   final address = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
+  VoidCallback? onLoginSuccess;
+
+  void onLogin() {
+    onLoginSuccess?.call();
+  }
 }
