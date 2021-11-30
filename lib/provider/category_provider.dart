@@ -175,11 +175,11 @@ class CategoryProvider with ChangeNotifier {
   }
 
   List<Product_Model> searchCategoryList(String query) {
-    List<Product_Model> searchShirt = searchList.where((element) {
+    List<Product_Model> searchSandwich = searchList.where((element) {
       return element.name.toUpperCase().contains(query) ||
           element.name.toLowerCase().contains(query);
     }).toList();
-    return searchShirt;
+    return searchSandwich;
   }
 
 

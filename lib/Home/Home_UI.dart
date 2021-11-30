@@ -13,7 +13,6 @@ import 'package:ministop/provider/category_provider.dart';
 import 'package:ministop/provider/product_provider.dart';
 import 'package:ministop/provider/user_provider.dart';
 import 'package:provider/provider.dart';
-import 'ListCategory/ListCategory.dart';
 import 'ListCategory/ListProduct.dart';
 
 
@@ -142,20 +141,20 @@ class _Home_UIState extends State<Home_UI> {
       mainAxisSize: MainAxisSize.min,
         children: sandwichIcon.map((e) {
           return GestureDetector(
-              onTap: () {},
-            // {
-            //   Navigator.of(context).push(
-            //     MaterialPageRoute(
-            //       builder: (ctx) =>Login_UI(),
-            //       //     ListProduct(
-            //       //   name: "Sandwich",
-            //       //   snapShot: sandwich,
-            //       //   isCategory: true,
-            //       // ),
-            //     ),
-            //   );
-            // },
-            child: _buildCategoryProduct(image: e.image, color: 0xff33dcfd),
+              onTap: ()
+            {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) =>Login_UI(),
+                      ListProduct(
+                    name: "Sandwich",
+                    snapShot: sandwich,
+                    isCategory: true,
+                  ),
+                ),
+              );
+            },
+            child: _buildCategoryProduct(image: e.image, color: 0xF09EDE82),
           );
         }).toList());
   }
@@ -180,7 +179,7 @@ class _Home_UIState extends State<Home_UI> {
             //     ),
             //   );
             // },
-            child: _buildCategoryProduct(image: e.image, color: 0xff33dcfd),
+            child: _buildCategoryProduct(image: e.image, color: 0xF0E87578),
           );
         }).toList());
   }
@@ -206,7 +205,7 @@ class _Home_UIState extends State<Home_UI> {
             //     ),
             //   );
             // },
-            child: _buildCategoryProduct(image: e.image, color: 0xff33dcfd),
+            child: _buildCategoryProduct(image: e.image, color: 0xF083D3E7),
           );
         }).toList());
   }
@@ -227,15 +226,15 @@ class _Home_UIState extends State<Home_UI> {
     builder: (context, provider, child) {
     return
         Container(
-          height: 500,
-          child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
+          height: 90,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 20,),
+              SizedBox(width: 20,),
               _buildDessertIcon(provider),
-              SizedBox(height: 20,),
+              SizedBox(width: 20,),
               _buildSandwichIcon(provider),
-              SizedBox(height: 20,),
+              SizedBox(width: 20,),
               _buildSushiIcon(provider),
             ],
           ),
