@@ -111,9 +111,7 @@ class _HomePage extends StatelessWidget {
                 ),
                 items: _buildImageSliders,
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               Text(
                 "Danh mục sản phẩm",
                 style: TextStyle(
