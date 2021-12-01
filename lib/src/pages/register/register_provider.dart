@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/src/application.dart';
 import 'package:ministop/src/base/di/locator.dart';
 import 'package:ministop/src/services/network/firebase_auth.dart';
-import 'package:ministop/src/utils/validator.dart';
 
 class RegisterProvider extends ChangeNotifier {
   final _auth = locator<FireBaseAuth>();
@@ -22,9 +22,8 @@ class RegisterProvider extends ChangeNotifier {
 
   //submit
   FutureOr<void> onSubmit() async {
-    final validate = _validateForm();
-
-    if (!validate) return;
+    if (formKey.currentState == null) return;
+    if (!formKey.currentState!.validate()) return;
 
     isLoading = true;
     notifyListeners();
@@ -40,115 +39,17 @@ class RegisterProvider extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       onRegisterSuccess?.call();
+    } on FirebaseAuthException catch (error) {
+      isLoading = false;
+      notifyListeners();
 
-      // on PlatformException catch (error) {
-      //   var message = "Please Check Your Internet Connection ";
-      //   if (error.message != null) {
-      //     message = error.message!;
-      //   }
-      //   _scaffoldKey.currentState!.showSnackBar(SnackBar(
-      //     content: Text(message.toString()),
-      //     duration: Duration(milliseconds: 600),
-      //     backgroundColor: Theme.of(context).primaryColor,
-      //   ));
-      //   setState(() {
-      //     isLoading = false;
-      //   });
-      // } catch (error) {
-      //   setState(() {
-      //     isLoading = false;
-      //   });
-      //   _scaffoldKey.currentState!.showSnackBar(SnackBar(
-      //     content: Text(error.toString()),
-      //     duration: Duration(milliseconds: 600),
-      //     backgroundColor: Theme.of(context).primaryColor,
-      //   ));
-      //
-      //   print(error);
-      // }
+      ScaffoldMessenger.of(MyApp.context).showSnackBar(SnackBar(
+        content: Text(error.message ?? ''),
+        duration: const Duration(milliseconds: 600),
+      ));
     } catch (error) {
       isLoading = false;
       notifyListeners();
     }
-  }
-
-  //validation
-  bool _validateForm() {
-    if (userName.text.isEmpty &&
-        email.text.isEmpty &&
-        password.text.isEmpty &&
-        phoneNumber.text.isEmpty &&
-        address.text.isEmpty) {
-      ScaffoldMessenger.of(MyApp.context).showSnackBar(
-        const SnackBar(
-          content: Text("All Flied Are Empty"),
-        ),
-      );
-      return false;
-    }
-
-    if (userName.text.length < 6) {
-      ScaffoldMessenger.of(MyApp.context).showSnackBar(
-        const SnackBar(
-          content: Text("Name Must Be 6 "),
-        ),
-      );
-      return false;
-    }
-
-    if (email.text.isEmpty) {
-      ScaffoldMessenger.of(MyApp.context).showSnackBar(
-        const SnackBar(
-          content: Text("Email Is Empty"),
-        ),
-      );
-      return false;
-    }
-
-    if (!Validator.email(email.text)) {
-      ScaffoldMessenger.of(MyApp.context).showSnackBar(
-        const SnackBar(
-          content: Text("Please Try Vaild Email"),
-        ),
-      );
-      return false;
-    }
-
-    if (password.text.isEmpty) {
-      ScaffoldMessenger.of(MyApp.context).showSnackBar(
-        const SnackBar(
-          content: Text("Password Is Empty"),
-        ),
-      );
-      return false;
-    }
-
-    if (password.text.length < 8) {
-      ScaffoldMessenger.of(MyApp.context).showSnackBar(
-        const SnackBar(
-          content: Text("Password  Is Too Short"),
-        ),
-      );
-      return false;
-    }
-
-    if (phoneNumber.text.length < 11 || phoneNumber.text.length > 11) {
-      ScaffoldMessenger.of(MyApp.context).showSnackBar(
-        const SnackBar(
-          content: Text("Phone Number Must Be 11 "),
-        ),
-      );
-      return false;
-    }
-
-    if (address.text.isEmpty) {
-      ScaffoldMessenger.of(MyApp.context).showSnackBar(
-        const SnackBar(
-          content: Text("Adress Is Empty "),
-        ),
-      );
-    }
-
-    return true;
   }
 }

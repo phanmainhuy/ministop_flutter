@@ -81,7 +81,7 @@ class _LoginPage extends StatelessWidget {
                 height: 70,
                 child: MyPasswordField(
                   hintText: 'Mật khẩu',
-                  obserText: true,
+
                   controller: context.read<LoginProvider>().password,
                   // onTap: () {
                   //   FocusScope.of(context).unfocus();

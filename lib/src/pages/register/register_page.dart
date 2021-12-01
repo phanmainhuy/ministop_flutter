@@ -4,6 +4,7 @@ import 'package:ministop/src/components/rounded_password_field.dart';
 import 'package:ministop/src/pages/login/login_page.dart';
 import 'package:ministop/src/resources/app_color.dart';
 import 'package:ministop/src/resources/app_drawable.dart';
+import 'package:ministop/src/utils/validator.dart';
 import 'package:provider/provider.dart';
 
 import 'register_provider.dart';
@@ -43,40 +44,35 @@ class _RegisterPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       key: context.read<RegisterProvider>().scaffoldKey,
       backgroundColor: AppColor.yellow,
-      body: Form(
-        key: context.read<RegisterProvider>().formKey,
-        child: Center(
-            child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              AppDrawable.logo(width: size.width * 0.60),
-              const SizedBox(height: 10),
-              const Text(
-                "ĐĂNG KÝ TÀI KHOẢN",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: AppColor.blue),
-              ),
-              const Text(
-                "MINISTOP",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: AppColor.blue),
-              ),
-              const SizedBox(height: 20),
-
-              //text
-
-              //button
-              _buildRegisterForm(context),
-            ],
+      body: SafeArea(
+        child: Form(
+          key: context.read<RegisterProvider>().formKey,
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(height: 30),
+                AppDrawable.logo(width: size.width * 0.60),
+                const SizedBox(height: 10),
+                const Text(
+                  "ĐĂNG KÝ TÀI KHOẢN\nMINISTOP",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: AppColor.blue),
+                ),
+                const SizedBox(height: 20),
+                Expanded(
+                    child: SingleChildScrollView(
+                  child: _buildRegisterForm(context),
+                ))
+              ],
+            ),
           ),
-        )),
+        ),
       ),
     );
   }
@@ -97,64 +93,96 @@ class _RegisterPage extends StatelessWidget {
       children: <Widget>[
         SizedBox(
           width: 330,
-          height: 70,
           child: RoundedInputField(
             icon: Icons.person,
             hintText: "Họ và tên",
             controller: context.read<RegisterProvider>().userName,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Phải nhập họ và tên';
+              }
+
+              if (value.length < 6) {
+                return 'Họ và tên phải lớn hơn 6 kí tự';
+              }
+
+              return null;
+            },
           ),
         ),
+        const SizedBox(height: 10),
         SizedBox(
           width: 330,
-          height: 70,
           child: RoundedInputField(
             icon: Icons.email,
             hintText: "Email",
             controller: context.read<RegisterProvider>().email,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Phải nhập địa chỉ email';
+              }
+
+              if (!Validator.email(value)) {
+                return 'Địa chỉ email sai định dạng';
+              }
+
+              return null;
+            },
           ),
         ),
+        const SizedBox(height: 10),
         SizedBox(
           width: 330,
-          height: 70,
           child: MyPasswordField(
             hintText: 'Mật khẩu',
-            obserText: true,
             controller: context.read<RegisterProvider>().password,
-            // onTap: () {
-            //   FocusScope.of(context).unfocus();
-            //   // setState(() {
-            //     obserText = !obserText;
-            //
-            //   // });
-            // },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Phải nhập mật khẩu';
+              }
+
+              if (value.length < 8) {
+                return 'Mật khẩu phải lớn hơn 8 kí tự';
+              }
+
+              return null;
+            },
           ),
         ),
-
-        // SizedBox(
-        //   width: 330,
-        //   height: 70,
-        //   child: MyPasswordField(
-        //     hintText: 'Nhập lại mật khẩu',
-        //     onChanged: (value) {},
-        //   ),
-        // ),
-        // SizedBox(height: 10,),
+        const SizedBox(height: 10),
         SizedBox(
           width: 330,
-          height: 70,
           child: RoundedInputField(
             icon: Icons.phone,
             hintText: "Số điện thoại",
             controller: context.read<RegisterProvider>().phoneNumber,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Phải nhập số điện thoại';
+              }
+
+              if (value.length != 10) {
+                return 'Số điện thoai phải 10 kí tự';
+              }
+
+              return null;
+            },
           ),
         ),
+        const SizedBox(height: 10),
         SizedBox(
           width: 330,
-          height: 70,
           child: RoundedInputField(
             icon: Icons.add_location,
             hintText: "Địa chỉ",
             controller: context.read<RegisterProvider>().address,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Phải nhập địa chỉ';
+              }
+
+              return null;
+            },
           ),
         ),
         const SizedBox(height: 10),
@@ -213,14 +241,6 @@ class _RegisterPage extends StatelessWidget {
                               side: const BorderSide(color: Colors.white)))),
                   onPressed: () {
                     context.read<RegisterProvider>().onSubmit();
-                    /*Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return LoginPage();
-                        },
-                      ),
-                    );*/
                   },
                 ),
         ),

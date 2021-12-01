@@ -1,45 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:ministop/src/resources/app_color.dart';
 
-import 'text_field_container.dart';
-
-class MyPasswordField extends StatelessWidget {
-  // final ValueChanged<String> onChanged;
-  final bool obserText;
+class MyPasswordField extends StatefulWidget {
   final TextEditingController controller;
-  final String hintText;
-
-  // final Function onTap;
+  final String? hintText;
+  final FormFieldValidator<String>? validator;
 
   const MyPasswordField({
     Key? key,
-    required this.hintText,
-    required this.obserText,
+    this.hintText,
     required this.controller,
-    // required this.onTap,
+    this.validator,
   }) : super(key: key);
 
   @override
+  _MyPasswordFieldState createState() => _MyPasswordFieldState();
+}
+
+class _MyPasswordFieldState extends State<MyPasswordField> {
+  bool obscureText = true;
+
+  @override
   Widget build(BuildContext context) {
-    return TextFieldContainer(
-      child: TextFormField(
-        obscureText: obserText,
-        controller: controller,
-        cursorColor: AppColor.blue,
-        decoration: InputDecoration(
-          hintText: hintText,
-          icon: const Icon(
-            Icons.lock,
+    return TextFormField(
+      obscureText: obscureText,
+      controller: widget.controller,
+      cursorColor: AppColor.blue,
+      validator: widget.validator,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.zero,
+        hintText: widget.hintText,
+        filled: true,
+        fillColor: Colors.white,
+        prefixIcon: const Icon(
+          Icons.lock,
+          color: AppColor.blue,
+        ),
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              obscureText = !obscureText;
+            });
+          },
+          child: Icon(
+            obscureText ? Icons.visibility : Icons.visibility_off,
             color: AppColor.blue,
           ),
-          suffixIcon: GestureDetector(
-            // onTap: onTap(),
-            child: Icon(
-              obserText == true ? Icons.visibility : Icons.visibility_off,
-              color: AppColor.blue,
-            ),
-          ),
-          border: InputBorder.none,
+        ),
+        border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white, width: 0),
+            borderRadius: BorderRadius.circular(200)),
+        errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.red, width: 1),
+            borderRadius: BorderRadius.circular(200)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white, width: 0),
+            borderRadius: BorderRadius.circular(200)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.white, width: 0),
+            borderRadius: BorderRadius.circular(200)),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.white, width: 0),
+          borderRadius: BorderRadius.circular(200),
         ),
       ),
     );
