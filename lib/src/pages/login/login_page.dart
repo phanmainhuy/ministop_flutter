@@ -6,6 +6,7 @@ import 'package:ministop/src/pages/login/login_provider.dart';
 import 'package:ministop/src/pages/register/register_page.dart';
 import 'package:ministop/src/resources/app_color.dart';
 import 'package:ministop/src/resources/app_drawable.dart';
+import 'package:ministop/src/utils/validator.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
@@ -18,13 +19,14 @@ class LoginPage extends StatelessWidget {
         final provider = LoginProvider();
 
         provider.onLoginSuccess = () {
-          Navigator.pushReplacement(
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (context) {
                 return const HomePage();
               },
             ),
+            (predicate) => predicate.isFirst,
           );
         };
 
@@ -46,70 +48,70 @@ class _LoginPage extends StatelessWidget {
       backgroundColor: AppColor.yellow,
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              AppDrawable.logo(width: size.width * 0.60),
-              const SizedBox(height: 10),
-              const Text(
-                "CỬA HÀNG TIỆN LỢI",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: AppColor.blue),
-              ),
-              const Text(
-                "MINISTOP",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: AppColor.blue),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: 330,
-                height: 70,
-                child: RoundedInputField(
-                  icon: Icons.person,
-                  hintText: "Email",
-                  controller: context.read<LoginProvider>().email,
+          child: Form(
+            key: context.read<LoginProvider>().formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                AppDrawable.logo(width: size.width * 0.60),
+                const SizedBox(height: 10),
+                const Text(
+                  "CỬA HÀNG TIỆN LỢI\nMINISTOP",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: AppColor.blue),
                 ),
-              ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: 330,
+                  child: RoundedInputField(
+                    icon: Icons.person,
+                    keyboardType: TextInputType.emailAddress,
+                    hintText: "Email",
+                    controller: context.read<LoginProvider>().email,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Phải nhập địa chỉ email';
+                      }
 
-              SizedBox(
-                width: 330,
-                height: 70,
-                child: MyPasswordField(
-                  hintText: 'Mật khẩu',
+                      if (!Validator.email(value)) {
+                        return 'Địa chỉ email sai định dạng';
+                      }
 
-                  controller: context.read<LoginProvider>().password,
-                  // onTap: () {
-                  //   FocusScope.of(context).unfocus();
-                  //   setState(() {
-                  //     obserText = !obserText;
-                  //   });
-                  // },
+                      return null;
+                    },
+                  ),
                 ),
-              ),
-              // SizedBox(height: 10,),
-              //add a checkbox save pass
-              SizedBox(
-                width: 330,
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const <Widget>[
-                    CheckBoxRemember(),
-                    Text('Lưu mật khẩu'),
-                  ],
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: 330,
+                  child: MyPasswordField(
+                    hintText: 'Mật khẩu',
+                    controller: context.read<LoginProvider>().password,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Phải nhập mật khẩu';
+                      }
+
+                      if (value.length < 8) {
+                        return 'Mật khẩu phải lớn hơn 8 kí tự';
+                      }
+
+                      return null;
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                width: 330,
-                height: 50,
-                child: ElevatedButton(
-                    child: Text("Đăng nhập".toUpperCase(),
+                _buildRememberPassword,
+                const SizedBox(height: 10),
+                _buildLoginButton,
+                const SizedBox(height: 10),
+                SizedBox(
+                  width: 330,
+                  height: 50,
+                  child: ElevatedButton(
+                    child: Text("Đăng ký tài khoản".toUpperCase(),
                         style: const TextStyle(fontSize: 15)),
                     style: ButtonStyle(
                         padding: MaterialStateProperty.all<EdgeInsets>(
@@ -122,14 +124,35 @@ class _LoginPage extends StatelessWidget {
                             .all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(19.0),
                                 side: const BorderSide(color: Colors.white)))),
-                    onPressed: context.read<LoginProvider>().onLogin),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                width: 330,
-                height: 50,
-                child: ElevatedButton(
-                  child: Text("Đăng ký tài khoản".toUpperCase(),
+                    onPressed: () => {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const RegisterPage();
+                          },
+                        ),
+                      ),
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget get _buildLoginButton => Selector<LoginProvider, bool>(
+        selector: (context, provider) => provider.isLoading,
+        builder: (context, isLoading, _) => SizedBox(
+          width: 330,
+          height: 50,
+          child: isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : ElevatedButton(
+                  child: Text("Đăng nhập".toUpperCase(),
                       style: const TextStyle(fontSize: 15)),
                   style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsets>(
@@ -142,36 +165,35 @@ class _LoginPage extends StatelessWidget {
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(19.0),
                               side: const BorderSide(color: Colors.white)))),
-                  onPressed: () => {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const RegisterPage();
-                        },
-                      ),
-                    ),
-                  },
-                ),
+                  onPressed: context.read<LoginProvider>().onLogin),
+        ),
+      );
+
+  Widget get _buildRememberPassword => Selector<LoginProvider, bool>(
+        selector: (context, provider) => provider.isSavePassword,
+        builder: (context, isSavePassword, _) => SizedBox(
+          width: 330,
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              CheckBoxRemember(
+                value: isSavePassword,
+                onChanged: context.read<LoginProvider>().savedPassword,
               ),
+              const Text('Lưu mật khẩu'),
             ],
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
-class CheckBoxRemember extends StatefulWidget {
-  const CheckBoxRemember({Key? key}) : super(key: key);
+class CheckBoxRemember extends StatelessWidget {
+  final ValueChanged<bool>? onChanged;
+  final bool value;
 
-  @override
-  _CheckBoxRememberState createState() => _CheckBoxRememberState();
-}
-
-//check box
-class _CheckBoxRememberState extends State<CheckBoxRemember> {
-  bool isChecked = false;
+  const CheckBoxRemember({Key? key, this.onChanged, this.value = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -192,11 +214,9 @@ class _CheckBoxRememberState extends State<CheckBoxRemember> {
     return Checkbox(
       checkColor: Colors.white,
       fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
+      value: value,
       onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-        });
+        onChanged?.call(value ?? false);
       },
     );
   }

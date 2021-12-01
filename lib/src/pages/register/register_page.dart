@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ministop/src/components/rounded_input_field.dart';
 import 'package:ministop/src/components/rounded_password_field.dart';
+import 'package:ministop/src/pages/home/home_page.dart';
 import 'package:ministop/src/pages/login/login_page.dart';
 import 'package:ministop/src/resources/app_color.dart';
 import 'package:ministop/src/resources/app_drawable.dart';
@@ -19,14 +20,11 @@ class RegisterPage extends StatelessWidget {
         final provider = RegisterProvider();
 
         provider.onRegisterSuccess = () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return const LoginPage();
-              },
-            ),
-          );
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+            builder: (context) {
+              return const HomePage();
+            },
+          ), (predicate) => predicate.isFirst);
         };
 
         return provider;
@@ -116,6 +114,7 @@ class _RegisterPage extends StatelessWidget {
           child: RoundedInputField(
             icon: Icons.email,
             hintText: "Email",
+            keyboardType: TextInputType.emailAddress,
             controller: context.read<RegisterProvider>().email,
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -155,6 +154,7 @@ class _RegisterPage extends StatelessWidget {
           child: RoundedInputField(
             icon: Icons.phone,
             hintText: "Số điện thoại",
+            keyboardType: TextInputType.phone,
             controller: context.read<RegisterProvider>().phoneNumber,
             validator: (value) {
               if (value == null || value.isEmpty) {
