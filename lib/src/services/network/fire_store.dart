@@ -94,4 +94,12 @@ class FireStore {
   void removeCart(CartProductModel removeItem) {
     _fireStore.collection('cart').doc(removeItem.id).delete();
   }
+
+  Future<void> removeCarts(List<String> list) async {
+    list.forEach(_removeCartId);
+  }
+
+  void _removeCartId(String path) async {
+    await _fireStore.collection('cart').doc(path).delete();
+  }
 }
