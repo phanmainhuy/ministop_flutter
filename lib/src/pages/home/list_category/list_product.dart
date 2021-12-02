@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ministop/src/models/product_model.dart';
-import 'package:ministop/src/pages/home/category_provider.dart';
 import 'package:ministop/src/pages/home/home_page.dart';
 
 import 'single_product.dart';
@@ -76,7 +75,7 @@ class ListProduct extends StatelessWidget {
     );
   }
 
-  Widget _buildSearchBar(CategoryProvider provider) {
+  /*Widget _buildSearchBar(CategoryProvider provider) {
     return isCategory == true
         ? IconButton(
             icon: const Icon(
@@ -98,7 +97,7 @@ class ListProduct extends StatelessWidget {
               // showSearch(context: context, delegate: SearchProduct());
             },
           );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

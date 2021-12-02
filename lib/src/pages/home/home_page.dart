@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:ministop/src/components/category_item.dart';
+import 'package:ministop/src/models/category_model.dart';
 import 'package:ministop/src/models/user_model.dart';
 import 'package:ministop/src/pages/cart/cart_page.dart';
 import 'package:ministop/src/pages/home/home_provider.dart';
@@ -128,11 +130,7 @@ class _HomePage extends StatelessWidget {
                   fontSize: 20,
                   color: AppColor.blue),
             ),
-            // SizedBox(height: 10,),
-            //danh muc sp
-
             _buildCategory,
-
             const Text(
               "Sản phẩm khác",
               style: TextStyle(
@@ -146,110 +144,18 @@ class _HomePage extends StatelessWidget {
     );
   } //build
 
-  Widget _buildSandwichIcon(CategoryProvider provider) {
-    final sandwichIcon = provider.imgCateSandwich;
-    //final sandwich = provider.sandwichList;
-
-    return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: sandwichIcon.map((e) {
-          return GestureDetector(
-            onTap: () {
-              /*Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) => Login_UI(),
-                  ListProduct(
-                    name: "Sandwich",
-                    snapShot: sandwich,
-                    isCategory: true,
-                  ),
-                ),
-              );*/
-            },
-            child: _buildCategoryProduct(image: e.image, color: 0xF09EDE82),
-          );
-        }).toList());
-  }
-
-  Widget _buildSushiIcon(CategoryProvider provider) {
-    final sushiIcon = provider.sushiIconData;
-    //final sushi = provider.sushiList;
-
-    return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: sushiIcon.map((e) {
-          return GestureDetector(
-            onTap: () {},
-            // {
-            //   Navigator.of(context).push(
-            //     MaterialPageRoute(
-            //       builder: (ctx) =>Login_UI(),
-            //         //   ListProduct(
-            //         // name: "sushi",
-            //         // snapShot: sushi,
-            //         // isCategory: true,
-            //       // ),
-            //     ),
-            //   );
-            // },
-            child: _buildCategoryProduct(image: e.image, color: 0xF0E87578),
-          );
-        }).toList());
-  }
-
-  Widget _buildDessertIcon(CategoryProvider provider) {
-    final dessertIcon = provider.dessertIconData;
-    //final dessert = provider.dessertList;
-
-    return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: dessertIcon.map((e) {
-          return GestureDetector(
-            onTap: () {},
-            // {
-            //   Navigator.of(context).push(
-            //     MaterialPageRoute(
-            //       builder: (ctx) => Login_UI(),
-            //       //     ListProduct(
-            //       //   name: "dessert",
-            //       //   snapShot: dessert,
-            //       //   isCategory: true,
-            //       // ),
-            //
-            //     ),
-            //   );
-            // },
-            child: _buildCategoryProduct(image: e.image, color: 0xF083D3E7),
-          );
-        }).toList());
-  }
-
-  //category
-  Widget _buildCategoryProduct({required String image, required int color}) {
-    return CircleAvatar(
-      backgroundColor: Color(color),
-      child: Image(
-        width: 100,
-        height: 100,
-        image: NetworkImage(image),
-      ),
-    );
-  }
-
-  Widget get _buildCategory =>
-      Consumer<CategoryProvider>(builder: (context, provider, child) {
+  Widget get _buildCategory => Selector<CategoryProvider, List<CategoryModel>>(
+      shouldRebuild: (v1, v2) => true,
+      selector: (context, provider) => provider.categories,
+      builder: (context, categories, child) {
         return SizedBox(
           height: 90,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const SizedBox(width: 20),
-              _buildDessertIcon(provider),
-              const SizedBox(width: 20),
-              _buildSandwichIcon(provider),
-              const SizedBox(width: 20),
-              _buildSushiIcon(provider),
-            ],
+          child: ListView.separated(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            separatorBuilder: (_, index) => const SizedBox(width: 20),
+            itemCount: categories.length,
+            itemBuilder: (_, index) => CategoryItem(data: categories[index]),
           ),
         );
       });
@@ -354,41 +260,41 @@ class _HomePage extends StatelessWidget {
 
   List<Widget> get _buildImageSliders => imgList
       .map((item) => Container(
-        margin: const EdgeInsets.all(5.0),
-        child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-            child: Stack(
-              children: <Widget>[
-                Image.asset(item, fit: BoxFit.cover, width: 1000.0),
-                Positioned(
-                  bottom: 0.0,
-                  left: 0.0,
-                  right: 0.0,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromARGB(200, 0, 0, 0),
-                          Color.fromARGB(0, 0, 0, 0)
-                        ],
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
+            margin: const EdgeInsets.all(5.0),
+            child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                child: Stack(
+                  children: <Widget>[
+                    Image.asset(item, fit: BoxFit.cover, width: 1000.0),
+                    Positioned(
+                      bottom: 0.0,
+                      left: 0.0,
+                      right: 0.0,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB(200, 0, 0, 0),
+                              Color.fromARGB(0, 0, 0, 0)
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                          ),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 20.0),
+                        // child: Text(
+                        //   'No. ${imgList.indexOf(item)} image',
+                        //   style: TextStyle(
+                        //     color: Colors.white,
+                        //     fontSize: 20.0,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 20.0),
-                    // child: Text(
-                    //   'No. ${imgList.indexOf(item)} image',
-                    //   style: TextStyle(
-                    //     color: Colors.white,
-                    //     fontSize: 20.0,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
-                  ),
-                ),
-              ],
-            )),
-      ))
+                  ],
+                )),
+          ))
       .toList();
 }

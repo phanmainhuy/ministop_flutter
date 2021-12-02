@@ -23,6 +23,15 @@ class FireStore {
     });
   }
 
+  Future<List<CategoryModel>> fetchCategories() async {
+    final snapShotData = await _fireStore.collection('category').get();
+
+    return snapShotData.docs
+        .map<CategoryModel>((element) =>
+            CategoryModel.fromJson(id: element.id, data: element.data()))
+        .toList();
+  }
+
   Future<UserModel> fetchUserData() async {
     final _auth = locator<FireBaseAuth>();
 
@@ -86,7 +95,7 @@ class FireStore {
     ).toList();
   }
 
-  Future<List<CategoryModel>> fetchImgSandwichData() async {
+  /*Future<List<CategoryModel>> fetchImgSandwichData() async {
     QuerySnapshot sandwichSnapShot = await _fireStore
         .collection("categoryimage")
         .doc("MtJVjhMJumreiTBimiyT")
@@ -99,7 +108,7 @@ class FireStore {
         return imgCateSandwichData;
       },
     ).toList();
-  }
+  }*/
 
   //sushi
   Future<List<ProductModel>> fetchSushiData() async {
@@ -120,7 +129,7 @@ class FireStore {
   }
 
   //get img
-  Future<List<CategoryModel>> fetchImgSushiData() async {
+  /*Future<List<CategoryModel>> fetchImgSushiData() async {
     QuerySnapshot sandwichSnapShot = await _fireStore
         .collection("categoryimage")
         .doc("MtJVjhMJumreiTBimiyT")
@@ -133,7 +142,7 @@ class FireStore {
         return imgCateSushiData;
       },
     ).toList();
-  }
+  }*/
 
   //dessert
   Future<List<ProductModel>> fetchDessertData() async {
@@ -154,7 +163,7 @@ class FireStore {
   }
 
   //get img
-  Future<List<CategoryModel>> fetchImgCateDessertData() async {
+  /*Future<List<CategoryModel>> fetchImgCateDessertData() async {
     QuerySnapshot sandwichSnapShot = await _fireStore
         .collection("categoryimage")
         .doc("MtJVjhMJumreiTBimiyT")
@@ -166,5 +175,5 @@ class FireStore {
         return imgCateDessertData;
       },
     ).toList();
-  }
+  }*/
 }

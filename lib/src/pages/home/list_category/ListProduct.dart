@@ -75,7 +75,7 @@ class ListProduct extends StatelessWidget {
     );
   }
 
-  Widget _buildSearchBar(CategoryProvider provider) {
+  /*Widget _buildSearchBar(CategoryProvider provider) {
     return isCategory == true
         ? IconButton(
             icon: Icon(
@@ -97,7 +97,7 @@ class ListProduct extends StatelessWidget {
               // showSearch(context: context, delegate: SearchProduct());
             },
           );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
