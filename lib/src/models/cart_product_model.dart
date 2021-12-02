@@ -3,7 +3,7 @@ class CartProductModel {
   final String id;
   final String name;
   final String image;
-  final double? price;
+  final int? price;
   final String userId;
 
   CartProductModel({
@@ -22,7 +22,7 @@ class CartProductModel {
         id: id,
         image: data['image'],
         productId: data['product_id'],
-        price: double.tryParse(data['price']),
+        price: int.tryParse(data['price']),
         userId: data['user_id']);
   }
 }

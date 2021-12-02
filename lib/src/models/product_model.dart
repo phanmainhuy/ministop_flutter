@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 class ProductModel {
   final String image;
   final String name;
-  final double? price;
+  final int? price;
   final String id;
   final String? description;
   final String categoryId;
@@ -27,7 +27,7 @@ class ProductModel {
         image: data['image'],
         categoryId: data['category'],
         description: data['descript'],
-        price: double.tryParse(data['price']));
+        price: int.tryParse(data['price']));
   }
 
   CartProductModel get toCart {
