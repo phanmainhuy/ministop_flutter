@@ -1,7 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ministop/src/base/di/locator.dart';
+import 'package:ministop/src/models/category_model.dart';
+import 'package:ministop/src/services/network/fire_store.dart';
 
 class HomeProvider extends ChangeNotifier {
+  final _fireStore = locator<FireStore>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   bool homeColor = true;
   bool checkoutColor = false;
@@ -10,6 +14,19 @@ class HomeProvider extends ChangeNotifier {
   bool profileColor = false;
 
   VoidCallback? onLogOutSuccess;
+
+  List<CategoryModel> categories = [];
+
+  HomeProvider() {
+    _fetchCategories();
+  }
+
+  Future<void> _fetchCategories() async {
+    try {
+      categories = await _fireStore.fetchCategories();
+      notifyListeners();
+    } catch (_) {}
+  }
 
   void selectHomeTile() {
     homeColor = true;

@@ -4,14 +4,13 @@ import 'package:ministop/src/components/category_item.dart';
 import 'package:ministop/src/models/category_model.dart';
 import 'package:ministop/src/models/user_model.dart';
 import 'package:ministop/src/pages/cart/cart_page.dart';
-import 'package:ministop/src/pages/home/home_provider.dart';
 import 'package:ministop/src/pages/login/login_page.dart';
 import 'package:ministop/src/pages/profile/profile_page.dart';
 import 'package:ministop/src/resources/app_color.dart';
 import 'package:ministop/src/resources/app_drawable.dart';
 import 'package:provider/provider.dart';
 
-import 'category_provider.dart';
+import 'home_provider.dart';
 import 'product_provider.dart';
 import 'user_provider.dart';
 
@@ -21,16 +20,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
-      Provider<CategoryProvider>(
-        create: (context) => CategoryProvider(),
-      ),
-      Provider<ProductProvider>(
+      ChangeNotifierProvider<ProductProvider>(
         create: (context) => ProductProvider(),
       ),
-      Provider<UserProvider>(
+      ChangeNotifierProvider<UserProvider>(
         create: (context) => UserProvider(),
       ),
-      Provider<HomeProvider>(
+      ChangeNotifierProvider<HomeProvider>(
         create: (context) {
           final provider = HomeProvider();
 
@@ -144,7 +140,7 @@ class _HomePage extends StatelessWidget {
     );
   } //build
 
-  Widget get _buildCategory => Selector<CategoryProvider, List<CategoryModel>>(
+  Widget get _buildCategory => Selector<HomeProvider, List<CategoryModel>>(
       shouldRebuild: (v1, v2) => true,
       selector: (context, provider) => provider.categories,
       builder: (context, categories, child) {

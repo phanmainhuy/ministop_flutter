@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ministop/src/models/product_model.dart';
-import 'package:ministop/src/pages/home/category_provider.dart';
 import 'package:ministop/src/pages/home/home_page.dart';
 import 'package:ministop/src/pages/home/product_provider.dart';
 import 'package:provider/provider.dart';
@@ -101,7 +100,6 @@ class ListProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoryProvider = Provider.of<CategoryProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context);
     return Scaffold(
       appBar: AppBar(
