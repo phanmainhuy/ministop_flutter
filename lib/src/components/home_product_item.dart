@@ -4,8 +4,10 @@ import 'package:ministop/src/resources/app_color.dart';
 
 class HomeProductItem extends StatelessWidget {
   final ProductModel data;
+  final VoidCallback? onAddCart;
 
-  const HomeProductItem({Key? key, required this.data}) : super(key: key);
+  const HomeProductItem({Key? key, required this.data, this.onAddCart})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,14 @@ class HomeProductItem extends StatelessWidget {
                 child: Text(
               data.name,
               style: const TextStyle(fontSize: 17, color: AppColor.blue),
-            ))
+            )),
+            IconButton(
+              onPressed: onAddCart,
+              icon: const Icon(
+                Icons.add_shopping_cart,
+                color: AppColor.blue,
+              ),
+            )
           ],
         ),
         const SizedBox(height: 8),

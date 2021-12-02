@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ministop/src/base/di/locator.dart';
+import 'package:ministop/src/models/cart_product_model.dart';
 import 'package:ministop/src/models/category_model.dart';
 import 'package:ministop/src/models/product_model.dart';
 import 'package:ministop/src/models/user_model.dart';
@@ -66,6 +67,27 @@ class FireStore {
     return snapShotData.docs
         .map<ProductModel>((element) =>
             ProductModel.fromJson(id: element.id, data: element.data()))
+        .toList();
+  }
+
+  Future addCart(CartProductModel cartItem) async {
+    return _fireStore.collection("cart").doc(cartItem.id).set({
+      "product_id": cartItem.productId,
+      "name": cartItem.name,
+      "image": cartItem.image,
+      "price": cartItem.price?.toString(),
+      "user_id": cartItem.userId,
+    });
+  }
+
+  Future<List<CartProductModel>> fetchCart() async {
+    final auth = locator<FireBaseAuth>();
+    final snapShotData = await _fireStore.collection('cart').get();
+
+    return snapShotData.docs
+        .map<CartProductModel>((element) =>
+            CartProductModel.fromJson(id: element.id, data: element.data()))
+        .where((element) => element.userId == auth.currentUser?.uid)
         .toList();
   }
 }
