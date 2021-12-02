@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/src/base/di/locator.dart';
+import 'package:ministop/src/models/cart_product_model.dart';
 import 'package:ministop/src/models/category_model.dart';
 import 'package:ministop/src/models/product_model.dart';
 import 'package:ministop/src/services/network/fire_store.dart';
@@ -19,10 +20,19 @@ class HomeProvider extends ChangeNotifier {
   List<CategoryModel> categories = [];
 
   List<ProductModel> products = [];
+  List<CartProductModel> cartProducts = [];
+
+  int get countCart => cartProducts.length;
 
   HomeProvider() {
     _fetchCategories();
     _fetchProducts();
+    _fetchCart();
+  }
+
+  Future<void> _fetchCart() async {
+    cartProducts = await _fireStore.fetchCart();
+    notifyListeners();
   }
 
   Future<void> _fetchCategories() async {
@@ -72,5 +82,17 @@ class HomeProvider extends ChangeNotifier {
 
   void openDrawer() {
     scaffoldKey.currentState?.openDrawer();
+  }
+
+  void addProduct(ProductModel product) {
+    final cartItem = product.toCart;
+    cartProducts.add(cartItem);
+    notifyListeners();
+
+    _fireStore.addCart(cartItem);
+  }
+
+  void refreshCart() {
+    _fetchCart();
   }
 }

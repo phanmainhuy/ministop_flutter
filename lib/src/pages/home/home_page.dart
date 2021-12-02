@@ -6,7 +6,6 @@ import 'package:ministop/src/models/category_model.dart';
 import 'package:ministop/src/models/product_model.dart';
 import 'package:ministop/src/models/user_model.dart';
 import 'package:ministop/src/pages/cart/cart_page.dart';
-import 'package:ministop/src/pages/home/cart_provider.dart';
 import 'package:ministop/src/pages/login/login_page.dart';
 import 'package:ministop/src/pages/profile/profile_page.dart';
 import 'package:ministop/src/resources/app_color.dart';
@@ -22,9 +21,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
-      ChangeNotifierProvider<CartProvider>(
-        create: (context) => CartProvider(),
-      ),
       ChangeNotifierProvider<UserProvider>(
         create: (context) => UserProvider(),
       ),
@@ -127,8 +123,8 @@ class _HomePage extends StatelessWidget {
     );
   } //build
 
-  Widget get _buildCartIcon => Selector<CartProvider, int>(
-        selector: (context, provider) => provider.count,
+  Widget get _buildCartIcon => Selector<HomeProvider, int>(
+        selector: (context, provider) => provider.countCart,
         builder: (context, count, _) => IconButton(
           icon: Stack(
             children: [
@@ -152,15 +148,13 @@ class _HomePage extends StatelessWidget {
               ),
             ],
           ),
-          onPressed: () => {
+          onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const CartPage();
-                },
-              ),
-            )
+              MaterialPageRoute(builder: (_) => const CartPage()),
+            ).then((_) {
+              context.read<HomeProvider>().refreshCart();
+            });
           },
         ),
       );
@@ -190,7 +184,7 @@ class _HomePage extends StatelessWidget {
             itemBuilder: (_, index) => HomeProductItem(
                 data: products[index],
                 onAddCart: () {
-                  context.read<CartProvider>().addProduct(products[index]);
+                  context.read<HomeProvider>().addProduct(products[index]);
                 }),
             separatorBuilder: (_, index) => const SizedBox(height: 10),
             itemCount: products.length),
@@ -253,7 +247,10 @@ class _HomePage extends StatelessWidget {
           onTap: () {
             context.read<HomeProvider>().selectCheckOutTile();
             Navigator.of(context)
-                .push(MaterialPageRoute(builder: (ctx) => const CartPage()));
+                .push(MaterialPageRoute(builder: (ctx) => const CartPage()))
+                .then((_) {
+              context.read<HomeProvider>().refreshCart();
+            });
           },
           leading: const Icon(Icons.shopping_cart),
           title: const Text("Cart"),

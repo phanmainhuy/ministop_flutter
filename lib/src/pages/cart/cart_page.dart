@@ -1,148 +1,110 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/src/components/my_button.dart';
-import 'package:ministop/src/pages/home/home_page.dart';
+import 'package:ministop/src/models/cart_product_model.dart';
+import 'package:ministop/src/pages/cart/cart_provider.dart';
 import 'package:ministop/src/resources/app_color.dart';
+import 'package:provider/provider.dart';
 
-class CartPage extends StatefulWidget {
+class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
 
   @override
-  _CartPageState createState() => _CartPageState();
-}
-
-class _CartPageState extends State<CartPage> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Giỏ hàng'),
-          backgroundColor: AppColor.blue,
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: _buildCard(),
-            ),
-            _buildButton(),
-          ],
-        ));
+    return ChangeNotifierProvider<CartProvider>(
+        create: (context) => CartProvider(), child: const _CartPage());
   }
 }
 
-Widget _buildCard() {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-    child: Card(
-      elevation: 4.0,
-      child: ListView(
-        children: [
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/dessert.png"),
-            title: Text("Name Product"),
-            subtitle: Text("Price"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/fast_food.png"),
-            title: Text("Name Product"),
-            subtitle: Text("Price"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/ice_cream.png"),
-            title: Text("Name Product"),
-            subtitle: Text("Price"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/noodle.png"),
-            title: Text("Name Product"),
-            subtitle: Text("Price"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/oden.png"),
-            title: Text("Name Product"),
-            subtitle: Text("Price"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
+class _CartPage extends StatelessWidget {
+  const _CartPage({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Giỏ hàng'),
+        backgroundColor: AppColor.blue,
+      ),
+      body: Column(
+        children: [
+          Expanded(child: _buildCard),
+          _buildButton(context),
         ],
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _buildButton() {
-  return Column(
-    children: [
-      SizedBox(
-        height: 10,
-      ),
-      Row(
+  Widget get _buildCard => Selector<CartProvider, List<CartProductModel>>(
+        shouldRebuild: (v1, v2) => true,
+        selector: (context, provider) => provider.products,
+        builder: (context, products, _) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+          child: Card(
+            elevation: 4.0,
+            child: ListView.separated(
+              itemCount: products.length,
+              separatorBuilder: (_, index) => const SizedBox(height: 15),
+              itemBuilder: (_, index) => ListTile(
+                leading: Image.network(
+                  products[index].image,
+                  width: 70,
+                  height: 70,
+                ),
+                title: Text(products[index].name),
+                subtitle: Text(products[index].price?.toString() ?? ''),
+                trailing: IconButton(
+                  onPressed: () {
+                    context.read<CartProvider>().removeCart(index);
+                  },
+                  icon: const Icon(
+                    Icons.remove_circle,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+  Widget _buildButton(BuildContext context) => Column(
         children: [
-          SizedBox(
-            width: 10,
+          const SizedBox(height: 10),
+          _buildTotal,
+          const SizedBox(height: 10),
+          MyButton(
+            name: "Thanh toán",
+            onPressed: () => {},
           ),
-          Text(
-            "Total",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          const SizedBox(height: 10),
+          MyButton(
+            name: "Quay về trang chủ",
+            onPressed: Navigator.of(context).pop,
           ),
-
         ],
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      MyButton(
-        name: "Thanh toán",
-        onPressed: () => {},
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      MyButton(
-        name: "Quay về trang chủ",
-        onPressed: () => {},
-      ),
-    ],
-  );
+      );
+
+  Widget get _buildTotal => Selector<CartProvider, double>(
+        selector: (context, provider) => provider.totalPrice,
+        builder: (context, totalPrice, _) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Total",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              Text(
+                totalPrice.toString(),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.red),
+              ),
+            ],
+          ),
+        ),
+      );
 }

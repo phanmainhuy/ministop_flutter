@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ministop/src/base/di/locator.dart';
 import 'package:ministop/src/models/cart_product_model.dart';
-import 'package:ministop/src/models/product_model.dart';
 import 'package:ministop/src/services/network/fire_store.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -9,6 +8,14 @@ class CartProvider extends ChangeNotifier {
   List<CartProductModel> products = [];
 
   int get count => products.length;
+
+  double get totalPrice {
+    if (products.isEmpty) return 0;
+
+    return products
+        .map((e) => e.price ?? 0)
+        .reduce((value, element) => value + element);
+  }
 
   CartProvider() {
     _fetchCart();
@@ -19,11 +26,9 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addProduct(ProductModel product) {
-    final cartItem = product.toCart;
-    products.add(cartItem);
+  void removeCart(int index) {
+    final removeItem = products.removeAt(index);
     notifyListeners();
-
-    _fireStore.addCart(cartItem);
+    _fireStore.removeCart(removeItem);
   }
 }

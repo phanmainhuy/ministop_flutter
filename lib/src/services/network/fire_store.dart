@@ -90,4 +90,8 @@ class FireStore {
         .where((element) => element.userId == auth.currentUser?.uid)
         .toList();
   }
+
+  void removeCart(CartProductModel removeItem) {
+    _fireStore.collection('cart').doc(removeItem.id).delete();
+  }
 }
