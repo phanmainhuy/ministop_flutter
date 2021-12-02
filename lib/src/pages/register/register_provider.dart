@@ -42,7 +42,7 @@ class RegisterProvider extends ChangeNotifier {
     } on FirebaseAuthException catch (error) {
       isLoading = false;
       notifyListeners();
-
+      //error firebase
       ScaffoldMessenger.of(MyApp.context).showSnackBar(SnackBar(
         content: Text(error.message ?? ''),
         duration: const Duration(milliseconds: 600),

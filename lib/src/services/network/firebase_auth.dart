@@ -35,4 +35,5 @@ class FireBaseAuth {
         phoneNumber: phoneNumber);
     return credential;
   }
+
 }
