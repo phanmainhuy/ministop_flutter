@@ -1,3 +1,8 @@
+import 'package:ministop/src/base/di/locator.dart';
+import 'package:ministop/src/models/cart_product_model.dart';
+import 'package:ministop/src/services/network/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
+
 class ProductModel {
   final String image;
   final String name;
@@ -23,5 +28,17 @@ class ProductModel {
         categoryId: data['category'],
         description: data['descript'],
         price: double.tryParse(data['price']));
+  }
+
+  CartProductModel get toCart {
+    final auth = locator<FireBaseAuth>();
+
+    return CartProductModel(
+        productId: id,
+        image: image,
+        name: name,
+        price: price,
+        id: const Uuid().v1().replaceAll('-', ''),
+        userId: auth.currentUser!.uid);
   }
 }

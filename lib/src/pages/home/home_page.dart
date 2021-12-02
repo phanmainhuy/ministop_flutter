@@ -6,6 +6,7 @@ import 'package:ministop/src/models/category_model.dart';
 import 'package:ministop/src/models/product_model.dart';
 import 'package:ministop/src/models/user_model.dart';
 import 'package:ministop/src/pages/cart/cart_page.dart';
+import 'package:ministop/src/pages/home/cart_provider.dart';
 import 'package:ministop/src/pages/login/login_page.dart';
 import 'package:ministop/src/pages/profile/profile_page.dart';
 import 'package:ministop/src/resources/app_color.dart';
@@ -21,6 +22,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
+      ChangeNotifierProvider<CartProvider>(
+        create: (context) => CartProvider(),
+      ),
       ChangeNotifierProvider<UserProvider>(
         create: (context) => UserProvider(),
       ),
@@ -83,21 +87,7 @@ class _HomePage extends StatelessWidget {
           ),
         ),
         iconTheme: const IconThemeData(color: AppColor.blue),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return const CartPage();
-                  },
-                ),
-              )
-            },
-          )
-        ],
+        actions: [_buildCartIcon],
         leading: IconButton(
           icon: const Icon(Icons.article),
           onPressed: context.read<HomeProvider>().openDrawer,
@@ -137,6 +127,44 @@ class _HomePage extends StatelessWidget {
     );
   } //build
 
+  Widget get _buildCartIcon => Selector<CartProvider, int>(
+        selector: (context, provider) => provider.count,
+        builder: (context, count, _) => IconButton(
+          icon: Stack(
+            children: [
+              const Padding(
+                  padding: EdgeInsets.all(5), child: Icon(Icons.shopping_cart)),
+              Visibility(
+                child: Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(2),
+                      decoration: const BoxDecoration(
+                          color: Colors.red, shape: BoxShape.circle),
+                      child: Text(
+                        count.toString(),
+                        style:
+                            const TextStyle(fontSize: 10, color: Colors.white),
+                      ),
+                    )),
+                visible: count > 0,
+              ),
+            ],
+          ),
+          onPressed: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const CartPage();
+                },
+              ),
+            )
+          },
+        ),
+      );
+
   Widget get _buildCategories => Selector<HomeProvider, List<CategoryModel>>(
       shouldRebuild: (v1, v2) => true,
       selector: (context, provider) => provider.categories,
@@ -159,7 +187,11 @@ class _HomePage extends StatelessWidget {
         selector: (context, provider) => provider.products,
         builder: (context, products, _) => ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            itemBuilder: (_, index) => HomeProductItem(data: products[index]),
+            itemBuilder: (_, index) => HomeProductItem(
+                data: products[index],
+                onAddCart: () {
+                  context.read<CartProvider>().addProduct(products[index]);
+                }),
             separatorBuilder: (_, index) => const SizedBox(height: 10),
             itemCount: products.length),
       );
@@ -194,23 +226,6 @@ class _HomePage extends StatelessWidget {
           _buildHomeTile,
           _buildCheckOutTile,
           _buildProfileTile,
-          //
-          // ListTile(
-          //   selected: contactUsColor,
-          //   onTap: () {
-          //     setState(() {
-          //       contactUsColor = true;
-          //       checkoutColor = false;
-          //       profileColor = false;
-          //       homeColor = false;
-          //       aboutColor = false;
-          //     });
-          //     Navigator.of(context).pushReplacement(
-          //         MaterialPageRoute(builder: (ctx) => ContactUs()));
-          //   },
-          //   leading: Icon(Icons.phone),
-          //   title: Text("Contant Us"),
-          // ),
           ListTile(
             onTap: context.read<HomeProvider>().logOut,
             leading: const Icon(Icons.exit_to_app),
@@ -287,14 +302,6 @@ class _HomePage extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
-                        // child: Text(
-                        //   'No. ${imgList.indexOf(item)} image',
-                        //   style: TextStyle(
-                        //     color: Colors.white,
-                        //     fontSize: 20.0,
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
                       ),
                     ),
                   ],
