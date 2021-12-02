@@ -73,16 +73,23 @@ class _CartPage extends StatelessWidget {
           const SizedBox(height: 10),
           _buildTotal,
           const SizedBox(height: 10),
-          MyButton(
-            name: "Thanh toán",
-            onPressed: () => {},
-          ),
+          _buildPayButton,
           const SizedBox(height: 10),
           MyButton(
             name: "Quay về trang chủ",
             onPressed: Navigator.of(context).pop,
           ),
         ],
+      );
+
+  Widget get _buildPayButton => Selector<CartProvider, bool>(
+        selector: (context, provider) => provider.isPaying,
+        builder: (context, isPaying, _) => isPaying
+            ? const Center(child: CircularProgressIndicator())
+            : MyButton(
+                name: "Thanh toán",
+                onPressed: context.read<CartProvider>().payment,
+              ),
       );
 
   Widget get _buildTotal => Selector<CartProvider, int>(
