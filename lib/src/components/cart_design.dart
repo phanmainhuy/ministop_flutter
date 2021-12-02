@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/src/components/my_button.dart';
 import 'package:ministop/src/pages/home/home_page.dart';
@@ -20,9 +21,10 @@ class _CartPageState extends State<CartPage> {
         ),
         body: Column(
           children: [
-            Expanded(child: _buildCard(),),
+            Expanded(
+              child: _buildCard(),
+            ),
             _buildButton(),
-
           ],
         ));
   }
@@ -38,6 +40,7 @@ Widget _buildCard() {
           ListTile(
             leading: Image.asset("assets/images/danhmuc/dessert.png"),
             title: Text("Name Product"),
+            subtitle: Text("Price"),
             trailing: GestureDetector(
               child: Icon(
                 Icons.remove_circle,
@@ -45,10 +48,13 @@ Widget _buildCard() {
               ),
             ),
           ),
-          SizedBox(height: 15,),
+          SizedBox(
+            height: 15,
+          ),
           ListTile(
             leading: Image.asset("assets/images/danhmuc/fast_food.png"),
             title: Text("Name Product"),
+            subtitle: Text("Price"),
             trailing: GestureDetector(
               child: Icon(
                 Icons.remove_circle,
@@ -56,11 +62,13 @@ Widget _buildCard() {
               ),
             ),
           ),
-          SizedBox(height: 15,),
-
+          SizedBox(
+            height: 15,
+          ),
           ListTile(
             leading: Image.asset("assets/images/danhmuc/ice_cream.png"),
             title: Text("Name Product"),
+            subtitle: Text("Price"),
             trailing: GestureDetector(
               child: Icon(
                 Icons.remove_circle,
@@ -68,11 +76,13 @@ Widget _buildCard() {
               ),
             ),
           ),
-
-          SizedBox(height: 15,),
+          SizedBox(
+            height: 15,
+          ),
           ListTile(
             leading: Image.asset("assets/images/danhmuc/noodle.png"),
             title: Text("Name Product"),
+            subtitle: Text("Price"),
             trailing: GestureDetector(
               child: Icon(
                 Icons.remove_circle,
@@ -80,11 +90,13 @@ Widget _buildCard() {
               ),
             ),
           ),
-
-          SizedBox(height: 15,),
+          SizedBox(
+            height: 15,
+          ),
           ListTile(
             leading: Image.asset("assets/images/danhmuc/oden.png"),
             title: Text("Name Product"),
+            subtitle: Text("Price"),
             trailing: GestureDetector(
               child: Icon(
                 Icons.remove_circle,
@@ -92,66 +104,6 @@ Widget _buildCard() {
               ),
             ),
           ),
-
-          SizedBox(height: 15,),
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/dessert.png"),
-            title: Text("Name Product"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
-          SizedBox(height: 15,),
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/dessert.png"),
-            title: Text("Name Product"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
-
-          SizedBox(height: 15,),
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/dessert.png"),
-            title: Text("Name Product"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
-
-          SizedBox(height: 15,),
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/fast_food.png"),
-            title: Text("Name Product"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
-
-          SizedBox(height: 15,),
-          ListTile(
-            leading: Image.asset("assets/images/danhmuc/drink.png"),
-            title: Text("Name Product"),
-            trailing: GestureDetector(
-              child: Icon(
-                Icons.remove_circle,
-                color: Colors.red,
-              ),
-            ),
-          ),
-
 
         ],
       ),
@@ -159,22 +111,38 @@ Widget _buildCard() {
   );
 }
 
-Widget _buildButton(){
+Widget _buildButton() {
   return Column(
     children: [
+      SizedBox(
+        height: 10,
+      ),
+      Row(
+        children: [
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            "Total",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
 
+        ],
+      ),
+      SizedBox(
+        height: 10,
+      ),
       MyButton(
         name: "Thanh toán",
-        onPressed: ()=>{
-
-        },
+        onPressed: () => {},
       ),
-      SizedBox(height: 10,),
+      SizedBox(
+        height: 10,
+      ),
       MyButton(
         name: "Quay về trang chủ",
-        onPressed: ()=>{},
+        onPressed: () => {},
       ),
     ],
   );
-
 }
