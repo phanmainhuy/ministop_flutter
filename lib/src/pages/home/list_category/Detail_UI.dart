@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ministop/src/components/my_button.dart';
 import 'package:ministop/src/pages/cart/cart_page.dart';
 import 'package:ministop/src/pages/home/home_page.dart';
-import 'package:ministop/src/pages/home/product_provider.dart';
 import 'package:provider/provider.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -142,7 +141,7 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  Widget _buildButtonPart(ProductProvider productProvider) {
+  /*Widget _buildButtonPart(ProductProvider productProvider) {
     return Container(
       height: 60,
       child: MyButton(
@@ -161,11 +160,10 @@ class _DetailScreenState extends State<DetailScreen> {
         },
       ),
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductProvider>(context);
 
     return WillPopScope(
       onWillPop: () async {

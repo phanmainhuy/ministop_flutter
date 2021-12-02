@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/src/base/di/locator.dart';
 import 'package:ministop/src/models/category_model.dart';
+import 'package:ministop/src/models/product_model.dart';
 import 'package:ministop/src/services/network/fire_store.dart';
 
 class HomeProvider extends ChangeNotifier {
@@ -17,13 +18,23 @@ class HomeProvider extends ChangeNotifier {
 
   List<CategoryModel> categories = [];
 
+  List<ProductModel> products = [];
+
   HomeProvider() {
     _fetchCategories();
+    _fetchProducts();
   }
 
   Future<void> _fetchCategories() async {
     try {
       categories = await _fireStore.fetchCategories();
+      notifyListeners();
+    } catch (_) {}
+  }
+
+  Future<void> _fetchProducts() async {
+    try {
+      products = await _fireStore.fetchProducts();
       notifyListeners();
     } catch (_) {}
   }

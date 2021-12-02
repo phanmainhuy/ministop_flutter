@@ -55,20 +55,15 @@ class ListProduct extends StatelessWidget {
         children: snapShot
             .map(
               (e) => GestureDetector(
-                onTap: () {
-                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  //     builder: (ctx) => Detail_UI(
-                  //       image: e.image,
-                  //       name: e.name,
-                  //       price: e.price,
-                  //     )));
-                },
-                child: SingleProduct(
-                  price: e.price,
-                  image: e.image,
-                  name: e.name,
-                ),
-              ),
+                  onTap: () {
+                    // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    //     builder: (ctx) => Detail_UI(
+                    //       image: e.image,
+                    //       name: e.name,
+                    //       price: e.price,
+                    //     )));
+                  },
+                  child: Container()),
             )
             .toList(),
       ),

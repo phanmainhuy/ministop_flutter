@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ministop/src/components/my_button.dart';
 import 'package:ministop/src/pages/cart/cart_page.dart';
 import 'package:ministop/src/pages/home/home_page.dart';
-import 'package:ministop/src/pages/home/product_provider.dart';
 
 class DetailPage extends StatefulWidget {
   final String image;
@@ -139,7 +138,7 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 
-  Widget _buildButtonPart(ProductProvider productProvider) {
+  /*Widget _buildButtonPart(ProductProvider productProvider) {
     return SizedBox(
       height: 60,
       child: MyButton(
@@ -158,7 +157,7 @@ class _DetailPageState extends State<DetailPage> {
         },
       ),
     );
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

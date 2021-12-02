@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:ministop/src/components/category_item.dart';
+import 'package:ministop/src/components/home_product_item.dart';
 import 'package:ministop/src/models/category_model.dart';
+import 'package:ministop/src/models/product_model.dart';
 import 'package:ministop/src/models/user_model.dart';
 import 'package:ministop/src/pages/cart/cart_page.dart';
 import 'package:ministop/src/pages/login/login_page.dart';
@@ -11,7 +13,6 @@ import 'package:ministop/src/resources/app_drawable.dart';
 import 'package:provider/provider.dart';
 
 import 'home_provider.dart';
-import 'product_provider.dart';
 import 'user_provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,9 +21,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
-      ChangeNotifierProvider<ProductProvider>(
-        create: (context) => ProductProvider(),
-      ),
       ChangeNotifierProvider<UserProvider>(
         create: (context) => UserProvider(),
       ),
@@ -105,42 +103,41 @@ class _HomePage extends StatelessWidget {
           onPressed: context.read<HomeProvider>().openDrawer,
         ),
       ),
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            CarouselSlider(
-              options: CarouselOptions(
-                aspectRatio: 2.0,
-                enlargeCenterPage: true,
-                enableInfiniteScroll: false,
-                initialPage: 2,
-                autoPlay: true,
-              ),
-              items: _buildImageSliders,
+      body: Column(
+        children: <Widget>[
+          CarouselSlider(
+            options: CarouselOptions(
+              aspectRatio: 2.0,
+              enlargeCenterPage: true,
+              enableInfiniteScroll: false,
+              initialPage: 2,
+              autoPlay: true,
             ),
-            const SizedBox(height: 10),
-            const Text(
-              "Danh mục sản phẩm",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: AppColor.blue),
-            ),
-            _buildCategory,
-            const Text(
-              "Sản phẩm khác",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: AppColor.blue),
-            ),
-          ],
-        ),
+            items: _buildImageSliders,
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            "Danh mục sản phẩm",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: AppColor.blue),
+          ),
+          _buildCategories,
+          const Text(
+            "Sản phẩm khác",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: AppColor.blue),
+          ),
+          Expanded(child: _buildProducts),
+        ],
       ),
     );
   } //build
 
-  Widget get _buildCategory => Selector<HomeProvider, List<CategoryModel>>(
+  Widget get _buildCategories => Selector<HomeProvider, List<CategoryModel>>(
       shouldRebuild: (v1, v2) => true,
       selector: (context, provider) => provider.categories,
       builder: (context, categories, child) {
@@ -148,6 +145,7 @@ class _HomePage extends StatelessWidget {
           height: 90,
           child: ListView.separated(
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             separatorBuilder: (_, index) => const SizedBox(width: 20),
             itemCount: categories.length,
@@ -155,6 +153,16 @@ class _HomePage extends StatelessWidget {
           ),
         );
       });
+
+  Widget get _buildProducts => Selector<HomeProvider, List<ProductModel>>(
+        shouldRebuild: (v1, v2) => true,
+        selector: (context, provider) => provider.products,
+        builder: (context, products, _) => ListView.separated(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            itemBuilder: (_, index) => HomeProductItem(data: products[index]),
+            separatorBuilder: (_, index) => const SizedBox(height: 10),
+            itemCount: products.length),
+      );
 
   //useracount drawer
   Widget get _buildUserAccountsDrawerHeader =>

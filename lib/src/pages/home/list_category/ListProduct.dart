@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ministop/src/models/product_model.dart';
 import 'package:ministop/src/pages/home/home_page.dart';
-import 'package:ministop/src/pages/home/product_provider.dart';
-import 'package:provider/provider.dart';
 
 import 'SingleProduct.dart';
 
@@ -62,11 +60,7 @@ class ListProduct extends StatelessWidget {
                   //       price: e.price,
                   //     )));
                 },
-                child: SingleProduct(
-                  price: e.price,
-                  image: e.image,
-                  name: e.name,
-                ),
+                child: Container(),
               ),
             )
             .toList(),
@@ -100,7 +94,6 @@ class ListProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<ProductProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
