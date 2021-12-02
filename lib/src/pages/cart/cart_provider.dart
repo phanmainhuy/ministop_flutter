@@ -9,7 +9,7 @@ class CartProvider extends ChangeNotifier {
 
   int get count => products.length;
 
-  double get totalPrice {
+  int get totalPrice {
     if (products.isEmpty) return 0;
 
     return products

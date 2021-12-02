@@ -85,7 +85,7 @@ class _CartPage extends StatelessWidget {
         ],
       );
 
-  Widget get _buildTotal => Selector<CartProvider, double>(
+  Widget get _buildTotal => Selector<CartProvider, int>(
         selector: (context, provider) => provider.totalPrice,
         builder: (context, totalPrice, _) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
