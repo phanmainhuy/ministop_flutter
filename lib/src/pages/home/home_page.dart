@@ -84,10 +84,10 @@ class _HomePage extends StatelessWidget {
         ),
         iconTheme: const IconThemeData(color: AppColor.blue),
         actions: [_buildCartIcon],
-        leading: IconButton(
-          icon: const Icon(Icons.article),
-          onPressed: context.read<HomeProvider>().openDrawer,
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.article),
+        //   onPressed: context.read<HomeProvider>().openDrawer,
+        // ),
       ),
       body: Column(
         children: <Widget>[
@@ -217,7 +217,7 @@ class _HomePage extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           _buildUserAccountsDrawerHeader,
-          _buildHomeTile,
+          _buildHomeTitle,
           _buildCheckOutTile,
           _buildProfileTile,
           ListTile(
@@ -230,7 +230,7 @@ class _HomePage extends StatelessWidget {
     );
   }
 
-  Widget get _buildHomeTile => Selector<HomeProvider, bool>(
+  Widget get _buildHomeTitle => Selector<HomeProvider, bool>(
         selector: (context, provider) => provider.homeColor,
         builder: (context, homeColor, _) => ListTile(
           selected: homeColor,

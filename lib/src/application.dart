@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ministop/src/services/network/firebase_auth.dart';
-import 'package:provider/provider.dart';
 
 import 'base/di/locator.dart';
-import 'pages/cart/cart_provider.dart';
 import 'pages/home/home_page.dart';
 import 'pages/login/login_page.dart';
 import 'resources/app_color.dart';
