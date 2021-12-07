@@ -111,7 +111,7 @@ class _HomePage extends StatelessWidget {
           ),
           _buildCategories,
           const Text(
-            "Sản phẩm khác",
+            "Sản phẩm",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -164,7 +164,7 @@ class _HomePage extends StatelessWidget {
       selector: (context, provider) => provider.categories,
       builder: (context, categories, child) {
         return SizedBox(
-          height: 90,
+          height: 70,
           child: ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -176,6 +176,7 @@ class _HomePage extends StatelessWidget {
         );
       });
 
+  //get products
   Widget get _buildProducts => Selector<HomeProvider, List<ProductModel>>(
         shouldRebuild: (v1, v2) => true,
         selector: (context, provider) => provider.products,

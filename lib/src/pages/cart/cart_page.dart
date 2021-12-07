@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ministop/src/components/my_button.dart';
 import 'package:ministop/src/models/cart_product_model.dart';
 import 'package:ministop/src/pages/cart/cart_provider.dart';
 import 'package:ministop/src/resources/app_color.dart';
+import 'package:ministop/src/utils/money_format.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatelessWidget {
@@ -30,6 +32,7 @@ class _CartPage extends StatelessWidget {
         children: [
           Expanded(child: _buildCard),
           _buildButton(context),
+          const SizedBox(height: 10,)
         ],
       ),
     );
