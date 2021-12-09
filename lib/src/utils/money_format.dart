@@ -1,7 +1,7 @@
 class MoneyFormat {
-  String? price;
+   String ?price;
 
-  String? moneyFormat(String price) {
+  String ?moneyFormat(String price) {
     if (price.length > 2) {
       var value = price;
       value = value.replaceAll(RegExp(r'\D'), '');

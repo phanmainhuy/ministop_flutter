@@ -12,7 +12,7 @@ class HomeProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MoneyFormat format = new MoneyFormat();
+    MoneyFormat format = MoneyFormat();
     String _money = "";
     _money = format.moneyFormat('${data.price.toString()} ')!;
     return Column(

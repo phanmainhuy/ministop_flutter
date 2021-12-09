@@ -18,6 +18,10 @@ class CartPage extends StatelessWidget {
   }
 }
 
+MoneyFormat format = MoneyFormat();
+String _money = "";
+
+
 class _CartPage extends StatelessWidget {
   const _CartPage({Key? key}) : super(key: key);
 

@@ -33,6 +33,8 @@ class FireStore {
         .toList();
   }
 
+
+
   Future<UserModel> fetchUserData() async {
     final _auth = locator<FireBaseAuth>();
 

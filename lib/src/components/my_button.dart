@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
@@ -9,14 +10,18 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45,
-      width: double.infinity,
+      height: 55,
+      width: 400,
       child: RaisedButton(
+        // padding: Padding(padding: EdgeInsets(),),
+        padding: const EdgeInsets.symmetric(horizontal: 20,),
         child: Text(
           name,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(color: Colors.white,
+          fontSize: 18,
+          ),
         ),
-        color: const Color(0xff746bc9),
+        color: const Color(0xff0d0071),
         onPressed: onPressed,
       ),
     );

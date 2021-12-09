@@ -10,6 +10,7 @@ class CategoryModel {
       required this.id,
       required this.color});
 
+
   factory CategoryModel.fromJson(
       {required String id, required Map<String, dynamic> data}) {
     return CategoryModel(
